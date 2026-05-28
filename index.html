@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilha de Carreira — Operações</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1A1A1A;min-height:100vh}
+:root{--g:#2E7D32;--gl:#E8F5E9;--gd:#1B5E20;--gm:#4CAF50;--o:#E65100;--ol:#FFF3E0;--gr:#F7F7F7;--gry:#E0E0E0;--ts:#616161;--bk:#1A1A1A}
+.wrap{max-width:960px;margin:0 auto;padding:36px 24px}
+.header{display:flex;align-items:center;margin-bottom:6px}
+.hbar{width:5px;height:30px;background:var(--g);border-radius:3px;margin-right:12px;flex-shrink:0}
+.htxt{font-size:20px;font-weight:600;color:var(--bk);letter-spacing:-.3px}
+.hsub{font-size:12px;color:var(--ts);margin-bottom:22px;padding-left:17px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;padding:10px 14px;background:var(--gr);border-radius:8px}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ts)}
+.dot{width:9px;height:9px;border-radius:50%}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
+.tab{padding:6px 16px;border-radius:20px;border:1px solid var(--gry);font-size:12px;cursor:pointer;background:#fff;color:var(--ts);transition:all .18s;font-weight:500}
+.tab.on{background:var(--g);color:#fff;border-color:var(--g)}
+.tab:hover:not(.on){border-color:var(--g);color:var(--g)}
+.tg{margin-bottom:20px}
+.tt{font-size:10px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.8px;padding:5px 11px;background:var(--gr);border-left:3px solid var(--g);margin-bottom:10px;border-radius:0 4px 4px 0}
+.tt.orange{border-left-color:var(--o)}
+.nr{display:flex;gap:9px;flex-wrap:wrap}
+.cd{background:#fff;border:1px solid var(--gry);border-radius:10px;padding:12px 14px;min-width:148px;flex:1;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;user-select:none}
+.cd::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--g)}
+.cd.oc::before{background:var(--o)}
+.cd:hover{box-shadow:0 4px 16px rgba(46,125,50,.12);transform:translateY(-2px)}
+.cd.sel{box-shadow:0 0 0 2px var(--g);transform:translateY(-2px)}
+.cd.sel.oc{box-shadow:0 0 0 2px var(--o)}
+.cr{font-size:12px;font-weight:600;color:var(--bk);margin-bottom:2px}
+.cs{font-size:10px;color:var(--ts);margin-bottom:6px}
+.cv{font-size:11px;font-weight:600;color:var(--gd)}
+.cv.oc{color:var(--o)}
+.bgs{display:flex;gap:3px;flex-wrap:wrap;margin-top:5px}
+.bg{font-size:9px;padding:2px 6px;border-radius:8px;font-weight:600}
+.bg.g{background:var(--gl);color:var(--gd)}
+.bg.o{background:var(--ol);color:var(--o)}
+.bg.gr{background:var(--gr);color:var(--ts)}
+.ar{display:flex;align-items:center;justify-content:center;gap:6px;margin:3px 0 10px;color:var(--gm)}
+.ar svg{width:16px;height:16px;stroke:var(--gm);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ar span{font-size:10px;color:var(--ts)}
+/* Detail panel */
+.dp{border:1px solid var(--gry);border-radius:14px;padding:22px;margin-top:8px;background:#fff;display:none;animation:fadeIn .2s ease}
+.dp.open{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.dph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+.dptit{font-size:16px;font-weight:600;color:var(--bk)}
+.dpsub{font-size:11px;color:var(--ts);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dpclose{background:none;border:1px solid var(--gry);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--ts);flex-shrink:0;transition:background .15s}
+.dpclose:hover{background:var(--gr)}
+.dpcols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.dpcols{grid-template-columns:1fr}}
+.dps{margin-bottom:14px}
+.dpst{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.cg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.cb{background:var(--gr);border-radius:8px;padding:9px 8px;text-align:center}
+.cbl{font-size:9px;color:var(--ts);margin-bottom:3px}
+.cbv{font-size:12px;font-weight:600;color:var(--bk)}
+.rl{list-style:none;display:flex;flex-direction:column;gap:4px}
+.rl li{font-size:11px;color:var(--ts);display:flex;gap:5px;line-height:1.4}
+.rl li::before{content:'✓';color:var(--g);font-weight:700;flex-shrink:0;margin-top:1px}
+.pw{background:var(--gr);border-radius:18px;height:5px;overflow:hidden;margin-top:5px}
+.pb{height:100%;border-radius:18px;background:var(--g)}
+.altnt{font-size:10px;color:var(--ts);background:#FFF8F5;border-radius:6px;padding:7px 10px;margin-top:8px;border-left:2px solid var(--o);line-height:1.5}
+.tbadge{font-size:9px;padding:2px 8px;border-radius:8px;background:var(--ol);color:var(--o);font-weight:600;white-space:nowrap}
+/* Journey SVG */
+.jrn{margin-top:20px;border-top:1px solid var(--gry);padding-top:18px}
+.jtit{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:12px;display:flex;align-items:center;gap:5px}
+.jsvg-wrap{overflow-x:auto;border-radius:8px;background:var(--gr);padding:16px 12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header"><div class="hbar"></div><span class="htxt">Trilha de Carreira — Operações</span></div>
+  <p class="hsub">Clique em qualquer cargo para ver detalhes completos e a jornada visual até o topo</p>
+
+  <div class="legend">
+    <div class="li"><div class="dot" style="background:var(--g)"></div>Gestão</div>
+    <div class="li"><div class="dot" style="background:var(--o)"></div>Equipe operacional</div>
+    <div class="li"><span style="font-weight:700;color:var(--o);font-size:11px">3 meses</span>&nbsp;JR → PL</div>
+    <div class="li"><span style="font-weight:700;color:var(--g);font-size:11px">1 ano</span>&nbsp;demais etapas</div>
+    <div class="li">↔ Atalho lateral disponível</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" onclick="setC('all',this)">Todos os clusters</button>
+    <button class="tab" onclick="setC('A',this)">Cluster A</button>
+    <button class="tab" onclick="setC('B',this)">Cluster B</button>
+    <button class="tab" onclick="setC('C',this)">Cluster C</button>
+  </div>
+
+  <div id="area"></div>
+  <div class="dp" id="dp"></div>
+</div>
+
+<script>
+const D={
+  regional:{l:"Coord. Regional",t:"g",c:"all",s:"Estratégico · Todas as lojas",fixo:14000,g:{a:0,b:0},rv:{a:0,b:6000},tot:{n:14000,m:17000,x:20000},tempo:null,req:["Gestão de múltiplas unidades","Liderança direta de gerentes de loja","KPIs e resultados regionais","Mínimo 1 ano como Gerente A"],comp:["Visão estratégica","Gestão de P&L","Liderança de líderes","Comunicação executiva"],prox:[]},
+  gerenteA:{l:"Gerente A",t:"g",c:"A",s:"Gerência sênior · Cluster A",fixo:6500,g:{a:3500,b:5500},rv:{a:0,b:3000},tot:{n:10000,m:12500,x:15000},tempo:"1 ano",req:["Experiência em loja de alto volume","Gestão completa de equipe e budget","Metas e indicadores financeiros","Mín. 1 ano como Gerente B"],comp:["Liderança de equipe","Gestão financeira","Desenvolvimento de talentos","Foco no cliente"],prox:["regional"]},
+  gerenteB:{l:"Gerente B",t:"g",c:"B",s:"Gerência pleno · Cluster B",fixo:6000,g:{a:3200,b:5200},rv:{a:0,b:1500},tot:{n:9200,m:10950,x:12700},tempo:"1 ano",req:["Operação diária completa da loja","Controle de indicadores de performance","Liderança de coordenadores","Mín. 1 ano como Gerente C ou Coord. A/B"],comp:["Gestão operacional","Análise de resultados","Mentoria","Resolução de conflitos"],prox:["gerenteA"]},
+  gerenteC:{l:"Gerente C",t:"g",c:"C",s:"Gerência júnior · Cluster C",fixo:5000,g:{a:2000,b:4000},rv:{a:0,b:800},tot:{n:7000,m:8400,x:9800},tempo:"1 ano",req:["Abertura e fechamento de loja","Gestão de turno e escala","Supervisão de equipe operacional","Mín. 1 ano como Coord. B, C ou A"],comp:["Liderança situacional","Operação de turno","Comunicação assertiva","Tomada de decisão"],prox:["gerenteB"]},
+  coordA:{l:"Coord. Loja A",t:"g",c:"A",s:"Coordenação sênior · Cluster A",fixo:3500,g:{a:1900,b:3500},rv:{a:0,b:1500},tot:{n:5400,m:6950,x:8500},tempo:"1 ano",req:["Gestão de turno completo","Treinamento e desenvolvimento de equipe","Controle de qualidade e padrões","Mín. 1 ano como Coord. Loja B"],comp:["Gestão de turno","Treinamento e desenvolvimento","Qualidade e padrões","Comunicação"],prox:["gerenteC","gerenteB"]},
+  coordB:{l:"Coord. Loja B",t:"g",c:"B",s:"Coordenação pleno · Cluster B",fixo:3000,g:{a:1750,b:3250},rv:{a:0,b:750},tot:{n:4750,m:5875,x:7000},tempo:"1 ano",req:["Supervisão de seção","Gestão de escala básica","Relatórios de resultado","Mín. 1 ano como Atendente/Assistente SR"],comp:["Supervisão operacional","Organização","Foco em resultado","Proatividade"],prox:["coordA","gerenteC"]},
+  coordC:{l:"Coord. Loja C",t:"g",c:"C",s:"Coordenação júnior · Cluster C",fixo:2500,g:{a:1225,b:2275},rv:{a:0,b:400},tot:{n:3725,m:4450,x:5175},tempo:"1 ano",req:["Primeiro cargo de liderança","Apoio ao Coordenador B","Controle básico de equipe","Progressão de Atendente/Assistente SR"],comp:["Iniciativa","Comunicação","Trabalho em equipe","Comprometimento"],prox:["coordB","gerenteC"]},
+  atendSRa:{l:"Atend. SR — Salão A",t:"e",c:"A",s:"Salão · Sênior · Cluster A",fixo:2200,g:{a:1800,b:1800},rv:{a:0,b:0},tot:{n:4000,m:4000,x:4000},tempo:"1 ano",req:["Domínio completo do salão A","Mentoria de Atendentes JR/PL","Padrão de atendimento excelente","Mín. 1 ano como Atendente PL"],comp:["Atendimento de excelência","Mentoria","Padronização","Autonomia"],prox:["coordC","coordB","coordA"]},
+  atendPLa:{l:"Atend. PL — Salão A",t:"e",c:"A",s:"Salão · Pleno · Cluster A",fixo:1850,g:{a:1300,b:1300},rv:{a:300,b:300},tot:{n:3450,m:3450,x:3450},tempo:"3 meses",req:["Atendimento autônomo e consistente","Conhecimento completo do cardápio","Mínimo 3 meses como Atendente JR"],comp:["Atendimento","Produto e cardápio","Responsabilidade","Trabalho em equipe"],prox:["atendSRa"]},
+  atendJRa:{l:"Atend. JR — Salão A",t:"e",c:"A",s:"Salão · Júnior · Cluster A",fixo:1850,g:{a:850,b:850},rv:{a:600,b:600},tot:{n:3300,m:3300,x:3300},tempo:null,req:["Posição de entrada — sem experiência exigida","Treinamento inicial completo","Boa comunicação e disposição para aprender"],comp:["Disposição","Comunicação","Aprendizado rápido","Pontualidade"],prox:["atendPLa"]},
+  atendSRb:{l:"Atend. SR — Salão B",t:"e",c:"B",s:"Salão · Sênior · Cluster B",fixo:2200,g:{a:1600,b:1600},rv:{a:0,b:0},tot:{n:3800,m:3800,x:3800},tempo:"1 ano",req:["Domínio do salão B","Mentoria de juniores e plenos","Padrão de atendimento consolidado","Mín. 1 ano como Atendente PL"],comp:["Atendimento","Mentoria","Padronização","Autonomia"],prox:["coordC","coordB"]},
+  atendPLb:{l:"Atend. PL — Salão B",t:"e",c:"B",s:"Salão · Pleno · Cluster B",fixo:1850,g:{a:1300,b:1300},rv:{a:200,b:200},tot:{n:3350,m:3350,x:3350},tempo:"3 meses",req:["Atendimento autônomo","Conhecimento do cardápio","Mínimo 3 meses como Atendente JR"],comp:["Atendimento","Responsabilidade","Trabalho em equipe"],prox:["atendSRb"]},
+  atendJRb:{l:"Atend. JR — Salão B",t:"e",c:"B",s:"Salão · Júnior · Cluster B",fixo:1850,g:{a:850,b:850},rv:{a:400,b:400},tot:{n:3100,m:3100,x:3100},tempo:null,req:["Posição de entrada","Treinamento inicial","Boa comunicação e disposição"],comp:["Disposição","Comunicação","Aprendizado"],prox:["atendPLb"]},
+  atendSRc:{l:"Atend. SR — Salão C",t:"e",c:"C",s:"Salão · Sênior · Cluster C",fixo:2200,g:{a:1400,b:1400},rv:{a:0,b:0},tot:{n:3600,m:3600,x:3600},tempo:"1 ano",req:["Domínio do salão C","Mentoria de juniores e plenos","Padrão de atendimento consolidado","Mín. 1 ano como Atendente PL"],comp:["Atendimento","Mentoria","Padronização"],prox:["coordC"]},
+  atendPLc:{l:"Atend. PL — Salão C",t:"e",c:"C",s:"Salão · Pleno · Cluster C",fixo:1850,g:{a:900,b:900},rv:{a:100,b:100},tot:{n:2850,m:2850,x:2850},tempo:"3 meses",req:["Atendimento autônomo","Mínimo 3 meses como Atendente JR"],comp:["Atendimento","Responsabilidade","Trabalho em equipe"],prox:["atendSRc"]},
+  atendJRc:{l:"Atend. JR — Salão C",t:"e",c:"C",s:"Salão · Júnior · Cluster C",fixo:1850,g:{a:600,b:600},rv:{a:200,b:200},tot:{n:2650,m:2650,x:2650},tempo:null,req:["Posição de entrada","Treinamento inicial","Boa comunicação e disposição"],comp:["Disposição","Comunicação","Aprendizado"],prox:["atendPLc"]},
+  assisSRa:{l:"Assist. SR — Coz. A",t:"e",c:"A",s:"Cozinha · Sênior · Cluster A",fixo:2200,g:{a:2000,b:2000},rv:{a:0,b:0},tot:{n:4200,m:4200,x:4200},tempo:"1 ano",req:["Operação completa de cozinha","Controle de qualidade alimentar","Mentoria de assistentes","Mín. 1 ano como Assistente PL"],comp:["Técnica culinária","Higiene e segurança","Mentoria","Autonomia"],prox:["coordC","coordB","coordA"]},
+  assisPLa:{l:"Assist. PL — Coz. A",t:"e",c:"A",s:"Cozinha · Pleno · Cluster A",fixo:1850,g:{a:1200,b:1200},rv:{a:300,b:300},tot:{n:3350,m:3350,x:3350},tempo:"3 meses",req:["Operação autônoma de cozinha","Conhecimento dos processos e padrões","Mínimo 3 meses como Assistente JR"],comp:["Técnica","Higiene","Responsabilidade","Trabalho em equipe"],prox:["assisSRa"]},
+  assisJRa:{l:"Assist. JR — Coz. A",t:"e",c:"A",s:"Cozinha · Júnior · Cluster A",fixo:1850,g:{a:850,b:850},rv:{a:600,b:600},tot:{n:3300,m:3300,x:3300},tempo:null,req:["Posição de entrada","Treinamento de boas práticas alimentares"],comp:["Disposição","Higiene","Aprendizado rápido"],prox:["assisPLa"]},
+  assisSRb:{l:"Assist. SR — Coz. B",t:"e",c:"B",s:"Cozinha · Sênior · Cluster B",fixo:2200,g:{a:1500,b:1500},rv:{a:0,b:0},tot:{n:3700,m:3700,x:3700},tempo:"1 ano",req:["Operação de cozinha B","Qualidade e padrão alimentar","Mentoria de assistentes","Mín. 1 ano como Assistente PL"],comp:["Técnica","Higiene","Mentoria","Padronização"],prox:["coordC","coordB"]},
+  assisPLb:{l:"Assist. PL — Coz. B",t:"e",c:"B",s:"Cozinha · Pleno · Cluster B",fixo:1850,g:{a:1000,b:1000},rv:{a:200,b:200},tot:{n:3050,m:3050,x:3050},tempo:"3 meses",req:["Operação autônoma","Mínimo 3 meses como Assistente JR"],comp:["Técnica","Responsabilidade","Trabalho em equipe"],prox:["assisSRb"]},
+  assisJRb:{l:"Assist. JR — Coz. B",t:"e",c:"B",s:"Cozinha · Júnior · Cluster B",fixo:1850,g:{a:850,b:850},rv:{a:400,b:400},tot:{n:3100,m:3100,x:3100},tempo:null,req:["Posição de entrada","Treinamento de boas práticas alimentares"],comp:["Disposição","Higiene","Aprendizado"],prox:["assisPLb"]},
+  assisSRc:{l:"Assist. SR — Coz. C",t:"e",c:"C",s:"Cozinha · Sênior · Cluster C",fixo:2200,g:{a:1300,b:1300},rv:{a:0,b:0},tot:{n:3500,m:3500,x:3500},tempo:"1 ano",req:["Operação de cozinha C","Qualidade e padrão alimentar","Mentoria","Mín. 1 ano como Assistente PL"],comp:["Técnica","Higiene","Mentoria"],prox:["coordC"]},
+  assisPLc:{l:"Assist. PL — Coz. C",t:"e",c:"C",s:"Cozinha · Pleno · Cluster C",fixo:1850,g:{a:750,b:750},rv:{a:100,b:100},tot:{n:2700,m:2700,x:2700},tempo:"3 meses",req:["Operação autônoma","Mínimo 3 meses como Assistente JR"],comp:["Técnica","Responsabilidade","Trabalho em equipe"],prox:["assisSRc"]},
+  assisJRc:{l:"Assist. JR — Coz. C",t:"e",c:"C",s:"Cozinha · Júnior · Cluster C",fixo:1850,g:{a:600,b:600},rv:{a:200,b:200},tot:{n:2650,m:2650,x:2650},tempo:null,req:["Posição de entrada","Treinamento de boas práticas alimentares"],comp:["Disposição","Higiene","Aprendizado"],prox:["assisPLc"]}
+};
+
+const PATHS={
+  assisJRa:["assisJRa","assisPLa","assisSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  assisJRb:["assisJRb","assisPLb","assisSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  assisJRc:["assisJRc","assisPLc","assisSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  assisPLa:["assisPLa","assisSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  assisPLb:["assisPLb","assisSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  assisPLc:["assisPLc","assisSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  assisSRa:["assisSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  assisSRb:["assisSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  assisSRc:["assisSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  atendJRa:["atendJRa","atendPLa","atendSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  atendJRb:["atendJRb","atendPLb","atendSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  atendJRc:["atendJRc","atendPLc","atendSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  atendPLa:["atendPLa","atendSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  atendPLb:["atendPLb","atendSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  atendPLc:["atendPLc","atendSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  atendSRa:["atendSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  atendSRb:["atendSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  atendSRc:["atendSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  coordC:["coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  coordB:["coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
+  coordA:["coordA","gerenteC","gerenteB","gerenteA","regional"],
+  gerenteC:["gerenteC","gerenteB","gerenteA","regional"],
+  gerenteB:["gerenteB","gerenteA","regional"],
+  gerenteA:["gerenteA","regional"],
+  regional:["regional"]
+};
+
+const ALTS={
+  coordC:"Atalho disponível: Coord. Loja C pode avançar diretamente para Gerente C, sem passar por Coord. B ou A, após cumprir 1 ano no cargo.",
+  coordB:"Atalho disponível: Coord. Loja B pode avançar diretamente para Gerente C ou Gerente B, sem passar por Coord. A, após cumprir 1 ano no cargo."
+};
+
+const f=v=>v?'R$ '+v.toLocaleString('pt-BR'):'—';
+let cur='all',sel=null;
+
+function setC(c,el){
+  cur=c;sel=null;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('dp').classList.remove('open');
+  render();
+}
+
+function card(k){
+  const d=D[k];
+  const oc=d.t==='e'?' oc':'';
+  const sc=sel===k?' sel':'';
+  const range=d.tot.n===d.tot.x?f(d.tot.n):f(d.tot.n)+' – '+f(d.tot.x);
+  return`<div class="cd${oc}${sc}" id="c${k}" onclick="openD('${k}')">
+    <div class="cr">${d.l}</div>
+    <div class="cs">${d.s}</div>
+    <div class="cv${oc}">${range}</div>
+    <div class="bgs">
+      <span class="bg gr">Cluster ${d.c==='all'?'Todas':d.c}</span>
+      ${d.tempo?`<span class="bg o">⏱ ${d.tempo}</span>`:''}
+      ${d.rv.b>0?`<span class="bg g">+RV ${f(d.rv.b)}</span>`:''}
+    </div>
+  </div>`;
+}
+
+function arrow(lbl){
+  return`<div class="ar">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="18 10 12 4 6 10"/></svg>
+    <span>${lbl}</span>
+  </div>`;
+}
+
+function render(){
+  const sh=k=>cur==='all'||(D[k].c===cur||D[k].c==='all');
+  let h='';
+  h+=`<div class="tg"><div class="tt">Estratégico — Coordenação Regional</div><div class="nr">${card('regional')}</div></div>`;
+  h+=arrow('1 ano como Gerente A');
+  let g='';['gerenteA','gerenteB','gerenteC'].forEach(k=>{if(sh(k))g+=card(k);});
+  if(g){
+    h+=`<div class="tg"><div class="tt">Gerência de loja</div><div class="nr">${g}</div></div>`;
+    h+=arrow('1 ano — Coord. Loja B ou C podem ir direto para Gerente C ou B');
+  }
+  let co='';['coordA','coordB','coordC'].forEach(k=>{if(sh(k))co+=card(k);});
+  if(co){
+    h+=`<div class="tg"><div class="tt">Coordenação de loja</div><div class="nr">${co}</div></div>`;
+    h+=arrow('1 ano como Atendente/Assistente SR — porta de entrada para liderança');
+  }
+  let sa='';['atendSRa','atendPLa','atendJRa','atendSRb','atendPLb','atendJRb','atendSRc','atendPLc','atendJRc'].forEach(k=>{if(sh(k))sa+=card(k);});
+  if(sa){h+=`<div class="tg"><div class="tt orange">Equipe de salão</div><div class="nr">${sa}</div></div>`;}
+  let cz='';['assisSRa','assisPLa','assisJRa','assisSRb','assisPLb','assisJRb','assisSRc','assisPLc','assisJRc'].forEach(k=>{if(sh(k))cz+=card(k);});
+  if(cz){h+=`<div class="tg"><div class="tt orange">Equipe de cozinha</div><div class="nr">${cz}</div></div>`;}
+  document.getElementById('area').innerHTML=h;
+}
+
+function buildSVG(key){
+  const path=PATHS[key];
+  if(!path||path.length<2)return'';
+  const nW=130,nH=46,gX=12,gY=54,cols=5;
+  const rows=Math.ceil(path.length/cols);
+  const usedW=cols*(nW+gX)-gX;
+  const x0=Math.max(8,(760-usedW)/2);
+  const svgH=rows*(nH+gY)+16;
+  const W=760;
+
+  const clrFill=(k,isCur)=>{
+    if(isCur)return{fill:'#E8F5E9',stroke:'#2E7D32',sw:2,tc:'#1B5E20',sc:'#2E7D32'};
+    if(k==='regional')return{fill:'#1B5E20',stroke:'#1B5E20',sw:1,tc:'#fff',sc:'#C8E6C9'};
+    if(D[k].t==='g')return{fill:'#EAF3DE',stroke:'#4CAF50',sw:1,tc:'#1B5E20',sc:'#2E7D32'};
+    return{fill:'#F5F5F5',stroke:'#E0E0E0',sw:1,tc:'#1A1A1A',sc:'#616161'};
+  };
+
+  let s=`<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 ${W} ${svgH}">`;
+  s+=`<defs><marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+
+  path.forEach((k,i)=>{
+    const col=i%cols,row=Math.floor(i/cols);
+    const x=x0+col*(nW+gX),y=8+row*(nH+gY);
+    const cx=x+nW/2,cy=y+nH/2;
+    const isCur=k===key;
+    const clr=clrFill(k,isCur);
+    const range=D[k].tot.n===D[k].tot.x?f(D[k].tot.n):f(D[k].tot.n)+'+';
+
+    s+=`<rect x="${x}" y="${y}" width="${nW}" height="${nH}" rx="7" fill="${clr.fill}" stroke="${clr.stroke}" stroke-width="${clr.sw}"/>`;
+    s+=`<text x="${cx}" y="${cy-6}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="10" font-weight="600" fill="${clr.tc}">${D[k].l}</text>`;
+    s+=`<text x="${cx}" y="${cy+9}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="9" fill="${clr.sc}">${range}</text>`;
+
+    if(i<path.length-1){
+      const ni=i+1,nc=ni%cols,nr=Math.floor(ni/cols);
+      const nx=x0+nc*(nW+gX),ny=8+nr*(nH+gY);
+      const ncx=nx+nW/2;
+      const tl=D[path[ni]].tempo||'';
+      const isAlt=(key==='coordC'||key==='coordB')&&(path[ni]==='gerenteC'||path[ni]==='gerenteB')&&D[k].t==='g';
+      const lineClr=isAlt?'#E65100':'#2E7D32';
+      const dash=isAlt?'stroke-dasharray="5 3"':'';
+      if(nr===row){
+        const x1=x+nW,y1=cy,x2=nx;
+        s+=`<line x1="${x1}" y1="${y1}" x2="${x2-3}" y2="${ny+nH/2}" stroke="${lineClr}" stroke-width="1.2" ${dash} marker-end="url(#ma)"/>`;
+        if(tl){const mx=(x1+x2)/2;s+=`<rect x="${mx-20}" y="${y1-17}" width="40" height="13" rx="4" fill="${D[path[ni]].tempo==='3 meses'?'#FFF3E0':'#F5F5F5'}"/><text x="${mx}" y="${y1-10}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,sans-serif" font-size="8" font-weight="600" fill="${D[path[ni]].tempo==='3 meses'?'#E65100':'#2E7D32'}">${tl}</text>`;}
+      } else {
+        const ty=y+nH+gY/2;
+        s+=`<path d="M ${cx} ${y+nH} L ${cx} ${ty} L ${ncx} ${ty} L ${ncx} ${ny-2}" stroke="${lineClr}" stroke-width="1.2" fill="none" ${dash} marker-end="url(#ma)"/>`;
+        if(tl){s+=`<rect x="${cx+4}" y="${ty-14}" width="38" height="13" rx="4" fill="${D[path[ni]].tempo==='3 meses'?'#FFF3E0':'#F5F5F5'}"/><text x="${cx+23}" y="${ty-7}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,sans-serif" font-size="8" font-weight="600" fill="${D[path[ni]].tempo==='3 meses'?'#E65100':'#2E7D32'}">${tl}</text>`;}
+      }
+    }
+  });
+  s+='</svg>';
+  return s;
+}
+
+function openD(key){
+  sel=key;
+  document.querySelectorAll('.cd').forEach(c=>c.classList.remove('sel'));
+  const el=document.getElementById('c'+key);
+  if(el)el.classList.add('sel');
+  const d=D[key];
+  const pp=Math.round((d.tot.m/d.tot.x)*100);
+  const alt=ALTS[key]?`<div class="altnt">↔ ${ALTS[key]}</div>`:'';
+  const px=d.prox&&d.prox.length
+    ?d.prox.map(k=>`<span class="bg g" style="padding:4px 9px;font-size:10px">${D[k].l}</span>`).join(' ')
+    :`<span style="font-size:11px;color:var(--ts)">Topo da carreira — nível máximo</span>`;
+  const tBadge=d.tempo
+    ?`<span class="tbadge">⏱ Mín. ${d.tempo} no cargo</span>`
+    :`<span class="bg gr" style="padding:2px 8px;font-size:9px">Cargo de entrada</span>`;
+  const gorj=d.g.a===d.g.b?f(d.g.a):`${f(d.g.a)} – ${f(d.g.b)}`;
+  const svg=buildSVG(key);
+  const panel=document.getElementById('dp');
+  panel.innerHTML=`
+    <div class="dph">
+      <div>
+        <div class="dptit">${d.l}</div>
+        <div class="dpsub">${d.s}&nbsp;&nbsp;${tBadge}</div>
+      </div>
+      <button class="dpclose" onclick="closeD()">×</button>
+    </div>
+    <div class="dpcols">
+      <div>
+        <div class="dps">
+          <div class="dpst">💰 Remuneração PJ</div>
+          <div class="cg">
+            <div class="cb"><div class="cbl">Fixo</div><div class="cbv">${f(d.fixo)}</div></div>
+            <div class="cb"><div class="cbl">Gorjeta</div><div class="cbv">${gorj}</div></div>
+            <div class="cb"><div class="cbl">RV máx</div><div class="cbv" style="color:var(--o)">${d.rv.b?f(d.rv.b):'—'}</div></div>
+          </div>
+          <div style="font-size:11px;color:var(--ts);display:flex;justify-content:space-between;margin-bottom:3px"><span>Faixa total</span><span style="font-weight:600">${f(d.tot.n)} – ${f(d.tot.x)}</span></div>
+          <div class="pw"><div class="pb" style="width:${pp}%"></div></div>
+          <div style="font-size:10px;color:var(--ts);margin-top:3px">Mid: ${f(d.tot.m)}</div>
+        </div>
+        <div class="dps">
+          <div class="dpst">✅ Requisitos para o cargo</div>
+          <ul class="rl">${d.req.map(r=>`<li>${r}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div>
+        <div class="dps">
+          <div class="dpst">⭐ Competências esperadas</div>
+          <div class="bgs" style="gap:6px">${d.comp.map(c=>`<span class="bg g">${c}</span>`).join('')}</div>
+        </div>
+        <div class="dps">
+          <div class="dpst">↑ Próximos passos na trilha</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">${px}</div>
+          ${alt}
+        </div>
+      </div>
+    </div>
+    ${svg?`<div class="jrn">
+      <div class="jtit">🗺 Jornada completa até o topo — a partir de ${d.l}</div>
+      <div class="jsvg-wrap">${svg}</div>
+      <div style="font-size:10px;color:var(--ts);margin-top:8px;display:flex;gap:14px;flex-wrap:wrap">
+        <span><span style="display:inline-block;width:8px;height:8px;background:#E8F5E9;border:2px solid #2E7D32;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Cargo atual</span>
+        <span><span style="display:inline-block;width:8px;height:8px;background:#1B5E20;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Destino final</span>
+        <span><span style="display:inline-block;width:8px;height:8px;background:#EAF3DE;border:1px solid #4CAF50;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Gestão</span>
+        <span><span style="display:inline-block;width:8px;height:8px;background:#F5F5F5;border:1px solid #E0E0E0;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Equipe</span>
+        <span><span style="background:var(--ol);color:var(--o);font-size:9px;padding:1px 5px;border-radius:4px;font-weight:600">3m</span> = 3 meses</span>
+        <span><span style="background:var(--gl);color:var(--gd);font-size:9px;padding:1px 5px;border-radius:4px;font-weight:600">1a</span> = 1 ano</span>
+      </div>
+    </div>`:''}
+  `;
+  panel.classList.add('open');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeD(){
+  sel=null;
+  document.getElementById('dp').classList.remove('open');
+  document.querySelectorAll('.cd').forEach(c=>c.classList.remove('sel'));
+}
+
+render();
+</script>
+</body>
+</html>
