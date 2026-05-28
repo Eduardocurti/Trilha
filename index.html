@@ -3,129 +3,420 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trilha de Carreira — Operações</title>
+<title>Trilha de Carreira — Operações Cabana Burger</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1A1A1A;min-height:100vh}
-:root{--g:#2E7D32;--gl:#E8F5E9;--gd:#1B5E20;--gm:#4CAF50;--o:#E65100;--ol:#FFF3E0;--gr:#F7F7F7;--gry:#E0E0E0;--ts:#616161;--bk:#1A1A1A}
-.wrap{max-width:960px;margin:0 auto;padding:36px 24px}
-.header{display:flex;align-items:center;margin-bottom:6px}
-.hbar{width:5px;height:30px;background:var(--g);border-radius:3px;margin-right:12px;flex-shrink:0}
-.htxt{font-size:20px;font-weight:600;color:var(--bk);letter-spacing:-.3px}
-.hsub{font-size:12px;color:var(--ts);margin-bottom:22px;padding-left:17px}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;padding:10px 14px;background:var(--gr);border-radius:8px}
-.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ts)}
-.dot{width:9px;height:9px;border-radius:50%}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1a1a1a}
+:root{
+  --green:#2E7D32;--green-light:#E8F5E9;--green-mid:#43A047;--green-dark:#1B5E20;
+  --orange:#E65100;--orange-light:#FFF3E0;--orange-mid:#F57C00;
+  --gray:#F5F5F5;--gray-b:#E0E0E0;--text-s:#616161;--white:#fff
+}
+.page{max-width:980px;margin:0 auto;padding:36px 24px}
+
+/* HEADER */
+.header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.accent-bar{width:5px;height:32px;background:var(--green);border-radius:3px;flex-shrink:0}
+h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
+.subtitle{font-size:12px;color:var(--text-s);margin-bottom:24px;padding-left:17px}
+
+/* LEGEND */
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 16px;background:var(--gray);border-radius:8px;margin-bottom:20px}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-s)}
+.leg-dot{width:9px;height:9px;border-radius:50%}
+.leg-pill{font-size:9px;padding:2px 6px;border-radius:8px;font-weight:600}
+
+/* CLUSTER TABS */
 .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
-.tab{padding:6px 16px;border-radius:20px;border:1px solid var(--gry);font-size:12px;cursor:pointer;background:#fff;color:var(--ts);transition:all .18s;font-weight:500}
-.tab.on{background:var(--g);color:#fff;border-color:var(--g)}
-.tab:hover:not(.on){border-color:var(--g);color:var(--g)}
-.tg{margin-bottom:20px}
-.tt{font-size:10px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.8px;padding:5px 11px;background:var(--gr);border-left:3px solid var(--g);margin-bottom:10px;border-radius:0 4px 4px 0}
-.tt.orange{border-left-color:var(--o)}
-.nr{display:flex;gap:9px;flex-wrap:wrap}
-.cd{background:#fff;border:1px solid var(--gry);border-radius:10px;padding:12px 14px;min-width:148px;flex:1;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;user-select:none}
-.cd::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--g)}
-.cd.oc::before{background:var(--o)}
-.cd:hover{box-shadow:0 4px 16px rgba(46,125,50,.12);transform:translateY(-2px)}
-.cd.sel{box-shadow:0 0 0 2px var(--g);transform:translateY(-2px)}
-.cd.sel.oc{box-shadow:0 0 0 2px var(--o)}
-.cr{font-size:12px;font-weight:600;color:var(--bk);margin-bottom:2px}
-.cs{font-size:10px;color:var(--ts);margin-bottom:6px}
-.cv{font-size:11px;font-weight:600;color:var(--gd)}
-.cv.oc{color:var(--o)}
-.bgs{display:flex;gap:3px;flex-wrap:wrap;margin-top:5px}
-.bg{font-size:9px;padding:2px 6px;border-radius:8px;font-weight:600}
-.bg.g{background:var(--gl);color:var(--gd)}
-.bg.o{background:var(--ol);color:var(--o)}
-.bg.gr{background:var(--gr);color:var(--ts)}
-.ar{display:flex;align-items:center;justify-content:center;gap:6px;margin:3px 0 10px;color:var(--gm)}
-.ar svg{width:16px;height:16px;stroke:var(--gm);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ar span{font-size:10px;color:var(--ts)}
-/* Detail panel */
-.dp{border:1px solid var(--gry);border-radius:14px;padding:22px;margin-top:8px;background:#fff;display:none;animation:fadeIn .2s ease}
-.dp.open{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.dph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
-.dptit{font-size:16px;font-weight:600;color:var(--bk)}
-.dpsub{font-size:11px;color:var(--ts);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.dpclose{background:none;border:1px solid var(--gry);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--ts);flex-shrink:0;transition:background .15s}
-.dpclose:hover{background:var(--gr)}
-.dpcols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:600px){.dpcols{grid-template-columns:1fr}}
-.dps{margin-bottom:14px}
-.dpst{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:8px;display:flex;align-items:center;gap:5px}
-.cg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
-.cb{background:var(--gr);border-radius:8px;padding:9px 8px;text-align:center}
-.cbl{font-size:9px;color:var(--ts);margin-bottom:3px}
-.cbv{font-size:12px;font-weight:600;color:var(--bk)}
-.rl{list-style:none;display:flex;flex-direction:column;gap:4px}
-.rl li{font-size:11px;color:var(--ts);display:flex;gap:5px;line-height:1.4}
-.rl li::before{content:'✓';color:var(--g);font-weight:700;flex-shrink:0;margin-top:1px}
-.pw{background:var(--gr);border-radius:18px;height:5px;overflow:hidden;margin-top:5px}
-.pb{height:100%;border-radius:18px;background:var(--g)}
-.altnt{font-size:10px;color:var(--ts);background:#FFF8F5;border-radius:6px;padding:7px 10px;margin-top:8px;border-left:2px solid var(--o);line-height:1.5}
-.tbadge{font-size:9px;padding:2px 8px;border-radius:8px;background:var(--ol);color:var(--o);font-weight:600;white-space:nowrap}
-/* Journey SVG */
-.jrn{margin-top:20px;border-top:1px solid var(--gry);padding-top:18px}
-.jtit{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:12px;display:flex;align-items:center;gap:5px}
-.jsvg-wrap{overflow-x:auto;border-radius:8px;background:var(--gr);padding:16px 12px}
+.tab{padding:6px 18px;border-radius:20px;border:1.5px solid var(--gray-b);font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:var(--text-s);transition:all .18s}
+.tab.on{background:var(--green);color:#fff;border-color:var(--green)}
+.tab:hover:not(.on){border-color:var(--green);color:var(--green)}
+
+/* SECTION */
+.section{margin-bottom:22px}
+.section-title{font-size:10px;font-weight:600;color:var(--text-s);text-transform:uppercase;letter-spacing:.8px;padding:5px 12px;background:var(--gray);border-left:3px solid var(--green);border-radius:0 4px 4px 0;margin-bottom:10px}
+.section-title.eq{border-left-color:var(--orange)}
+.cards-row{display:flex;gap:9px;flex-wrap:wrap}
+
+/* CARD */
+.card{background:#fff;border:1px solid var(--gray-b);border-radius:10px;padding:13px 15px;min-width:150px;flex:1;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green)}
+.card.eq::before{background:var(--orange)}
+.card:hover{box-shadow:0 4px 18px rgba(46,125,50,.13);transform:translateY(-2px)}
+.card.active{box-shadow:0 0 0 2.5px var(--green);transform:translateY(-2px)}
+.card.active.eq{box-shadow:0 0 0 2.5px var(--orange)}
+.card-title{font-size:12px;font-weight:600;color:#1a1a1a;margin-bottom:2px}
+.card-sub{font-size:10px;color:var(--text-s);margin-bottom:7px}
+.card-range{font-size:11px;font-weight:600;color:var(--green-dark)}
+.card-range.eq{color:var(--orange)}
+.tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:9px;padding:2px 6px;border-radius:7px;font-weight:600}
+.tag.cluster{background:var(--gray);color:var(--text-s)}
+.tag.time-orange{background:var(--orange-light);color:var(--orange)}
+.tag.time-green{background:var(--green-light);color:var(--green-dark)}
+.tag.rv{background:var(--green-light);color:var(--green-dark)}
+
+/* ARROW SEPARATOR */
+.arrow-sep{display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0 11px}
+.arrow-sep svg{width:16px;height:16px}
+.arrow-sep span{font-size:10px;color:var(--text-s)}
+
+/* DETAIL PANEL */
+.detail{border:1.5px solid var(--gray-b);border-radius:14px;margin-top:10px;overflow:hidden;display:none;animation:slide-in .22s ease}
+.detail.open{display:block}
+@keyframes slide-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.detail-header{padding:18px 22px 14px;border-bottom:1px solid var(--gray-b);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.detail-title{font-size:16px;font-weight:600;color:#1a1a1a}
+.detail-meta{font-size:11px;color:var(--text-s);margin-top:3px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.close-btn{background:none;border:1px solid var(--gray-b);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;color:var(--text-s);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.close-btn:hover{background:var(--gray)}
+
+.detail-body{padding:18px 22px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:22px}
+@media(max-width:560px){.info-grid{grid-template-columns:1fr}}
+
+/* COMP TABLE */
+.comp-section{}
+.sec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text-s);margin-bottom:9px}
+.comp-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:11px}
+.comp-box{background:var(--gray);border-radius:8px;padding:9px 8px;text-align:center}
+.comp-box .lbl{font-size:9px;color:var(--text-s);margin-bottom:3px}
+.comp-box .val{font-size:13px;font-weight:600;color:#1a1a1a}
+.comp-box .val.orange{color:var(--orange)}
+.range-row{display:flex;justify-content:space-between;font-size:11px;color:var(--text-s);margin-bottom:4px}
+.range-row span:last-child{font-weight:600;color:#1a1a1a}
+.progress-track{background:var(--gray);border-radius:20px;height:5px;overflow:hidden}
+.progress-fill{height:100%;border-radius:20px;background:var(--green)}
+.mid-label{font-size:10px;color:var(--text-s);margin-top:4px}
+
+/* REQ / COMP LIST */
+.list-section{}
+.req-list{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.req-list li{font-size:11px;color:var(--text-s);display:flex;gap:6px;line-height:1.4}
+.req-list li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+.comp-tags{display:flex;flex-wrap:wrap;gap:5px}
+.comp-tag{font-size:10px;padding:3px 9px;border-radius:9px;background:var(--green-light);color:var(--green-dark);font-weight:500}
+.next-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.next-tag{font-size:10px;padding:4px 10px;border-radius:9px;background:var(--green-light);color:var(--green-dark);font-weight:600;border:1px solid #A5D6A7}
+.alt-note{font-size:10px;color:var(--text-s);background:#FFF8F5;border-radius:6px;padding:7px 11px;margin-top:9px;border-left:2.5px solid var(--orange);line-height:1.6}
+
+/* ───────────────────────────────────────── */
+/* TIMELINE SECTION                          */
+/* ───────────────────────────────────────── */
+.timeline-section{border-top:1px solid var(--gray-b);padding:20px 22px 22px}
+.timeline-header{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text-s);margin-bottom:18px;display:flex;align-items:center;gap:6px}
+
+.tl-outer{overflow-x:auto;padding-bottom:6px}
+.tl-canvas{position:relative;min-width:640px}
+
+/* horizontal spine */
+.tl-spine{position:absolute;top:36px;left:0;right:0;height:2px;background:linear-gradient(to right, var(--green-mid), var(--green-dark))}
+
+/* Each stop */
+.tl-stops{display:flex;align-items:flex-start;position:relative}
+.tl-stop{display:flex;flex-direction:column;align-items:center;flex:1;min-width:110px;position:relative}
+
+/* dot on spine */
+.tl-dot{width:14px;height:14px;border-radius:50%;border:2.5px solid var(--green);background:#fff;z-index:2;position:relative;margin:0 auto;cursor:pointer;transition:all .18s;flex-shrink:0}
+.tl-dot.current{background:var(--green);box-shadow:0 0 0 4px var(--green-light)}
+.tl-dot.dest{background:var(--green-dark);border-color:var(--green-dark);box-shadow:0 0 0 4px #C8E6C9}
+.tl-dot.gestao{border-color:var(--green-mid);background:var(--green-light)}
+.tl-dot.equipe{border-color:var(--orange-mid);background:var(--orange-light)}
+.tl-stop:hover .tl-dot{transform:scale(1.25)}
+
+/* connector line between stops */
+.tl-connector{position:absolute;top:29px;left:50%;width:100%;height:2px;background:var(--green-mid);z-index:1}
+.tl-connector.alt{background:repeating-linear-gradient(to right,var(--orange) 0,var(--orange) 5px,transparent 5px,transparent 9px)}
+
+/* time badge above dot */
+.tl-time{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;margin-bottom:6px;white-space:nowrap;min-height:17px}
+.tl-time.orange{background:var(--orange-light);color:var(--orange)}
+.tl-time.green{background:var(--green-light);color:var(--green-dark)}
+.tl-time.blank{background:transparent;color:transparent}
+
+/* card below dot */
+.tl-card{background:#fff;border:1px solid var(--gray-b);border-radius:8px;padding:8px 10px;margin-top:7px;width:calc(100% - 10px);text-align:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.tl-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px;background:var(--green)}
+.tl-card.eq::before{background:var(--orange)}
+.tl-card.current-card{border-color:var(--green);box-shadow:0 0 0 2px var(--green-light)}
+.tl-card.dest-card{border-color:var(--green-dark);background:var(--green-light)}
+.tl-card:hover{box-shadow:0 3px 12px rgba(46,125,50,.14);transform:translateY(-2px)}
+.tl-card-name{font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:2px}
+.tl-card-sal{font-size:9px;color:var(--green-dark);font-weight:600}
+.tl-card-sal.eq{color:var(--orange)}
+.tl-card-cluster{font-size:8px;color:var(--text-s);margin-top:2px}
+
+/* FORK (alternative paths) */
+.tl-fork{margin-top:20px;border-top:1px dashed var(--gray-b);padding-top:16px}
+.fork-label{font-size:10px;color:var(--text-s);margin-bottom:12px;display:flex;align-items:center;gap:5px}
+.fork-row{display:flex;gap:10px;flex-wrap:wrap}
+.fork-option{flex:1;min-width:120px;background:var(--gray);border-radius:9px;padding:10px 12px;border-left:3px solid var(--orange)}
+.fork-option-title{font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:3px}
+.fork-option-path{font-size:9px;color:var(--text-s);line-height:1.5}
+
+/* legend inside timeline */
+.tl-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.tl-leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text-s)}
+.tl-leg-dot{width:10px;height:10px;border-radius:50%}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="header"><div class="hbar"></div><span class="htxt">Trilha de Carreira — Operações</span></div>
-  <p class="hsub">Clique em qualquer cargo para ver detalhes completos e a jornada visual até o topo</p>
+<div class="page">
+
+  <div class="header">
+    <div class="accent-bar"></div>
+    <h1>Trilha de Carreira — Operações</h1>
+  </div>
+  <p class="subtitle">Clique em qualquer cargo para detalhes completos e visualização da jornada</p>
 
   <div class="legend">
-    <div class="li"><div class="dot" style="background:var(--g)"></div>Gestão</div>
-    <div class="li"><div class="dot" style="background:var(--o)"></div>Equipe operacional</div>
-    <div class="li"><span style="font-weight:700;color:var(--o);font-size:11px">3 meses</span>&nbsp;JR → PL</div>
-    <div class="li"><span style="font-weight:700;color:var(--g);font-size:11px">1 ano</span>&nbsp;demais etapas</div>
-    <div class="li">↔ Atalho lateral disponível</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Gestão</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--orange)"></div>Equipe operacional</div>
+    <div class="leg"><span class="leg-pill" style="background:var(--orange-light);color:var(--orange)">3 meses</span>JR → PL</div>
+    <div class="leg"><span class="leg-pill" style="background:var(--green-light);color:var(--green-dark)">1 ano</span>demais etapas</div>
+    <div class="leg">↔ Atalho lateral disponível</div>
   </div>
 
   <div class="tabs">
-    <button class="tab on" onclick="setC('all',this)">Todos os clusters</button>
-    <button class="tab" onclick="setC('A',this)">Cluster A</button>
-    <button class="tab" onclick="setC('B',this)">Cluster B</button>
-    <button class="tab" onclick="setC('C',this)">Cluster C</button>
+    <button class="tab on" onclick="setCluster('all',this)">Todos os clusters</button>
+    <button class="tab" onclick="setCluster('A',this)">Cluster A</button>
+    <button class="tab" onclick="setCluster('B',this)">Cluster B</button>
+    <button class="tab" onclick="setCluster('C',this)">Cluster C</button>
   </div>
 
   <div id="area"></div>
-  <div class="dp" id="dp"></div>
-</div>
+  <div class="detail" id="detail"></div>
 
+</div>
 <script>
-const D={
-  regional:{l:"Coord. Regional",t:"g",c:"all",s:"Estratégico · Todas as lojas",fixo:14000,g:{a:0,b:0},rv:{a:0,b:6000},tot:{n:14000,m:17000,x:20000},tempo:null,req:["Gestão de múltiplas unidades","Liderança direta de gerentes de loja","KPIs e resultados regionais","Mínimo 1 ano como Gerente A"],comp:["Visão estratégica","Gestão de P&L","Liderança de líderes","Comunicação executiva"],prox:[]},
-  gerenteA:{l:"Gerente A",t:"g",c:"A",s:"Gerência sênior · Cluster A",fixo:6500,g:{a:3500,b:5500},rv:{a:0,b:3000},tot:{n:10000,m:12500,x:15000},tempo:"1 ano",req:["Experiência em loja de alto volume","Gestão completa de equipe e budget","Metas e indicadores financeiros","Mín. 1 ano como Gerente B"],comp:["Liderança de equipe","Gestão financeira","Desenvolvimento de talentos","Foco no cliente"],prox:["regional"]},
-  gerenteB:{l:"Gerente B",t:"g",c:"B",s:"Gerência pleno · Cluster B",fixo:6000,g:{a:3200,b:5200},rv:{a:0,b:1500},tot:{n:9200,m:10950,x:12700},tempo:"1 ano",req:["Operação diária completa da loja","Controle de indicadores de performance","Liderança de coordenadores","Mín. 1 ano como Gerente C ou Coord. A/B"],comp:["Gestão operacional","Análise de resultados","Mentoria","Resolução de conflitos"],prox:["gerenteA"]},
-  gerenteC:{l:"Gerente C",t:"g",c:"C",s:"Gerência júnior · Cluster C",fixo:5000,g:{a:2000,b:4000},rv:{a:0,b:800},tot:{n:7000,m:8400,x:9800},tempo:"1 ano",req:["Abertura e fechamento de loja","Gestão de turno e escala","Supervisão de equipe operacional","Mín. 1 ano como Coord. B, C ou A"],comp:["Liderança situacional","Operação de turno","Comunicação assertiva","Tomada de decisão"],prox:["gerenteB"]},
-  coordA:{l:"Coord. Loja A",t:"g",c:"A",s:"Coordenação sênior · Cluster A",fixo:3500,g:{a:1900,b:3500},rv:{a:0,b:1500},tot:{n:5400,m:6950,x:8500},tempo:"1 ano",req:["Gestão de turno completo","Treinamento e desenvolvimento de equipe","Controle de qualidade e padrões","Mín. 1 ano como Coord. Loja B"],comp:["Gestão de turno","Treinamento e desenvolvimento","Qualidade e padrões","Comunicação"],prox:["gerenteC","gerenteB"]},
-  coordB:{l:"Coord. Loja B",t:"g",c:"B",s:"Coordenação pleno · Cluster B",fixo:3000,g:{a:1750,b:3250},rv:{a:0,b:750},tot:{n:4750,m:5875,x:7000},tempo:"1 ano",req:["Supervisão de seção","Gestão de escala básica","Relatórios de resultado","Mín. 1 ano como Atendente/Assistente SR"],comp:["Supervisão operacional","Organização","Foco em resultado","Proatividade"],prox:["coordA","gerenteC"]},
-  coordC:{l:"Coord. Loja C",t:"g",c:"C",s:"Coordenação júnior · Cluster C",fixo:2500,g:{a:1225,b:2275},rv:{a:0,b:400},tot:{n:3725,m:4450,x:5175},tempo:"1 ano",req:["Primeiro cargo de liderança","Apoio ao Coordenador B","Controle básico de equipe","Progressão de Atendente/Assistente SR"],comp:["Iniciativa","Comunicação","Trabalho em equipe","Comprometimento"],prox:["coordB","gerenteC"]},
-  atendSRa:{l:"Atend. SR — Salão A",t:"e",c:"A",s:"Salão · Sênior · Cluster A",fixo:2200,g:{a:1800,b:1800},rv:{a:0,b:0},tot:{n:4000,m:4000,x:4000},tempo:"1 ano",req:["Domínio completo do salão A","Mentoria de Atendentes JR/PL","Padrão de atendimento excelente","Mín. 1 ano como Atendente PL"],comp:["Atendimento de excelência","Mentoria","Padronização","Autonomia"],prox:["coordC","coordB","coordA"]},
-  atendPLa:{l:"Atend. PL — Salão A",t:"e",c:"A",s:"Salão · Pleno · Cluster A",fixo:1850,g:{a:1300,b:1300},rv:{a:300,b:300},tot:{n:3450,m:3450,x:3450},tempo:"3 meses",req:["Atendimento autônomo e consistente","Conhecimento completo do cardápio","Mínimo 3 meses como Atendente JR"],comp:["Atendimento","Produto e cardápio","Responsabilidade","Trabalho em equipe"],prox:["atendSRa"]},
-  atendJRa:{l:"Atend. JR — Salão A",t:"e",c:"A",s:"Salão · Júnior · Cluster A",fixo:1850,g:{a:850,b:850},rv:{a:600,b:600},tot:{n:3300,m:3300,x:3300},tempo:null,req:["Posição de entrada — sem experiência exigida","Treinamento inicial completo","Boa comunicação e disposição para aprender"],comp:["Disposição","Comunicação","Aprendizado rápido","Pontualidade"],prox:["atendPLa"]},
-  atendSRb:{l:"Atend. SR — Salão B",t:"e",c:"B",s:"Salão · Sênior · Cluster B",fixo:2200,g:{a:1600,b:1600},rv:{a:0,b:0},tot:{n:3800,m:3800,x:3800},tempo:"1 ano",req:["Domínio do salão B","Mentoria de juniores e plenos","Padrão de atendimento consolidado","Mín. 1 ano como Atendente PL"],comp:["Atendimento","Mentoria","Padronização","Autonomia"],prox:["coordC","coordB"]},
-  atendPLb:{l:"Atend. PL — Salão B",t:"e",c:"B",s:"Salão · Pleno · Cluster B",fixo:1850,g:{a:1300,b:1300},rv:{a:200,b:200},tot:{n:3350,m:3350,x:3350},tempo:"3 meses",req:["Atendimento autônomo","Conhecimento do cardápio","Mínimo 3 meses como Atendente JR"],comp:["Atendimento","Responsabilidade","Trabalho em equipe"],prox:["atendSRb"]},
-  atendJRb:{l:"Atend. JR — Salão B",t:"e",c:"B",s:"Salão · Júnior · Cluster B",fixo:1850,g:{a:850,b:850},rv:{a:400,b:400},tot:{n:3100,m:3100,x:3100},tempo:null,req:["Posição de entrada","Treinamento inicial","Boa comunicação e disposição"],comp:["Disposição","Comunicação","Aprendizado"],prox:["atendPLb"]},
-  atendSRc:{l:"Atend. SR — Salão C",t:"e",c:"C",s:"Salão · Sênior · Cluster C",fixo:2200,g:{a:1400,b:1400},rv:{a:0,b:0},tot:{n:3600,m:3600,x:3600},tempo:"1 ano",req:["Domínio do salão C","Mentoria de juniores e plenos","Padrão de atendimento consolidado","Mín. 1 ano como Atendente PL"],comp:["Atendimento","Mentoria","Padronização"],prox:["coordC"]},
-  atendPLc:{l:"Atend. PL — Salão C",t:"e",c:"C",s:"Salão · Pleno · Cluster C",fixo:1850,g:{a:900,b:900},rv:{a:100,b:100},tot:{n:2850,m:2850,x:2850},tempo:"3 meses",req:["Atendimento autônomo","Mínimo 3 meses como Atendente JR"],comp:["Atendimento","Responsabilidade","Trabalho em equipe"],prox:["atendSRc"]},
-  atendJRc:{l:"Atend. JR — Salão C",t:"e",c:"C",s:"Salão · Júnior · Cluster C",fixo:1850,g:{a:600,b:600},rv:{a:200,b:200},tot:{n:2650,m:2650,x:2650},tempo:null,req:["Posição de entrada","Treinamento inicial","Boa comunicação e disposição"],comp:["Disposição","Comunicação","Aprendizado"],prox:["atendPLc"]},
-  assisSRa:{l:"Assist. SR — Coz. A",t:"e",c:"A",s:"Cozinha · Sênior · Cluster A",fixo:2200,g:{a:2000,b:2000},rv:{a:0,b:0},tot:{n:4200,m:4200,x:4200},tempo:"1 ano",req:["Operação completa de cozinha","Controle de qualidade alimentar","Mentoria de assistentes","Mín. 1 ano como Assistente PL"],comp:["Técnica culinária","Higiene e segurança","Mentoria","Autonomia"],prox:["coordC","coordB","coordA"]},
-  assisPLa:{l:"Assist. PL — Coz. A",t:"e",c:"A",s:"Cozinha · Pleno · Cluster A",fixo:1850,g:{a:1200,b:1200},rv:{a:300,b:300},tot:{n:3350,m:3350,x:3350},tempo:"3 meses",req:["Operação autônoma de cozinha","Conhecimento dos processos e padrões","Mínimo 3 meses como Assistente JR"],comp:["Técnica","Higiene","Responsabilidade","Trabalho em equipe"],prox:["assisSRa"]},
-  assisJRa:{l:"Assist. JR — Coz. A",t:"e",c:"A",s:"Cozinha · Júnior · Cluster A",fixo:1850,g:{a:850,b:850},rv:{a:600,b:600},tot:{n:3300,m:3300,x:3300},tempo:null,req:["Posição de entrada","Treinamento de boas práticas alimentares"],comp:["Disposição","Higiene","Aprendizado rápido"],prox:["assisPLa"]},
-  assisSRb:{l:"Assist. SR — Coz. B",t:"e",c:"B",s:"Cozinha · Sênior · Cluster B",fixo:2200,g:{a:1500,b:1500},rv:{a:0,b:0},tot:{n:3700,m:3700,x:3700},tempo:"1 ano",req:["Operação de cozinha B","Qualidade e padrão alimentar","Mentoria de assistentes","Mín. 1 ano como Assistente PL"],comp:["Técnica","Higiene","Mentoria","Padronização"],prox:["coordC","coordB"]},
-  assisPLb:{l:"Assist. PL — Coz. B",t:"e",c:"B",s:"Cozinha · Pleno · Cluster B",fixo:1850,g:{a:1000,b:1000},rv:{a:200,b:200},tot:{n:3050,m:3050,x:3050},tempo:"3 meses",req:["Operação autônoma","Mínimo 3 meses como Assistente JR"],comp:["Técnica","Responsabilidade","Trabalho em equipe"],prox:["assisSRb"]},
-  assisJRb:{l:"Assist. JR — Coz. B",t:"e",c:"B",s:"Cozinha · Júnior · Cluster B",fixo:1850,g:{a:850,b:850},rv:{a:400,b:400},tot:{n:3100,m:3100,x:3100},tempo:null,req:["Posição de entrada","Treinamento de boas práticas alimentares"],comp:["Disposição","Higiene","Aprendizado"],prox:["assisPLb"]},
-  assisSRc:{l:"Assist. SR — Coz. C",t:"e",c:"C",s:"Cozinha · Sênior · Cluster C",fixo:2200,g:{a:1300,b:1300},rv:{a:0,b:0},tot:{n:3500,m:3500,x:3500},tempo:"1 ano",req:["Operação de cozinha C","Qualidade e padrão alimentar","Mentoria","Mín. 1 ano como Assistente PL"],comp:["Técnica","Higiene","Mentoria"],prox:["coordC"]},
-  assisPLc:{l:"Assist. PL — Coz. C",t:"e",c:"C",s:"Cozinha · Pleno · Cluster C",fixo:1850,g:{a:750,b:750},rv:{a:100,b:100},tot:{n:2700,m:2700,x:2700},tempo:"3 meses",req:["Operação autônoma","Mínimo 3 meses como Assistente JR"],comp:["Técnica","Responsabilidade","Trabalho em equipe"],prox:["assisSRc"]},
-  assisJRc:{l:"Assist. JR — Coz. C",t:"e",c:"C",s:"Cozinha · Júnior · Cluster C",fixo:1850,g:{a:600,b:600},rv:{a:200,b:200},tot:{n:2650,m:2650,x:2650},tempo:null,req:["Posição de entrada","Treinamento de boas práticas alimentares"],comp:["Disposição","Higiene","Aprendizado"],prox:["assisPLc"]}
+/* ─────────────── DATA ─────────────── */
+const D = {
+  regional: {
+    label:"Coord. Regional", type:"g", cluster:"all", seniority:"Estratégico",
+    fixo:14000, gorj:{min:0,mid:0,max:0}, rv:{min:0,mid:3000,max:6000},
+    tot:{min:14000,mid:17000,max:20000},
+    tempo:null,
+    req:["Gestão de múltiplas unidades","Liderança direta de gerentes","KPIs e resultados regionais","Mín. 1 ano como Gerente A"],
+    comp:["Visão estratégica","Gestão de P&L","Liderança de líderes","Comunicação executiva"],
+    prox:[], alt:null
+  },
+  gerenteA: {
+    label:"Gerente A", type:"g", cluster:"A", seniority:"Gerência Sênior",
+    fixo:6500, gorj:{min:3500,mid:4500,max:5500}, rv:{min:0,mid:1500,max:3000},
+    tot:{min:10000,mid:12500,max:15000},
+    tempo:"1 ano",
+    req:["Loja de alto volume","Gestão completa de equipe e budget","Metas e indicadores financeiros","Mín. 1 ano como Gerente B"],
+    comp:["Liderança","Gestão financeira","Desenvolvimento de talentos","Foco no cliente"],
+    prox:["regional"], alt:null
+  },
+  gerenteB: {
+    label:"Gerente B", type:"g", cluster:"B", seniority:"Gerência Pleno",
+    fixo:6000, gorj:{min:3200,mid:4200,max:5200}, rv:{min:0,mid:750,max:1500},
+    tot:{min:9200,mid:10950,max:12700},
+    tempo:"1 ano",
+    req:["Operação diária completa","Controle de indicadores","Liderança de coordenadores","Mín. 1 ano como Gerente C ou Coord. A/B"],
+    comp:["Gestão operacional","Análise de resultados","Mentoria","Resolução de conflitos"],
+    prox:["gerenteA"], alt:null
+  },
+  gerenteC: {
+    label:"Gerente C", type:"g", cluster:"C", seniority:"Gerência Júnior",
+    fixo:5000, gorj:{min:2000,mid:3000,max:4000}, rv:{min:0,mid:400,max:800},
+    tot:{min:7000,mid:8400,max:9800},
+    tempo:"1 ano",
+    req:["Abertura e fechamento de loja","Gestão de turno","Supervisão de equipe","Mín. 1 ano como Coord. B, C ou A"],
+    comp:["Liderança situacional","Operação de turno","Comunicação assertiva","Tomada de decisão"],
+    prox:["gerenteB"], alt:null
+  },
+  coordA: {
+    label:"Coord. Loja A", type:"g", cluster:"A", seniority:"Coord. Sênior",
+    fixo:3500, gorj:{min:1900,mid:2700,max:3500}, rv:{min:0,mid:750,max:1500},
+    tot:{min:5400,mid:6950,max:8500},
+    tempo:"1 ano",
+    req:["Gestão de turno completo","Treinamento de equipe","Controle de qualidade","Mín. 1 ano como Coord. B"],
+    comp:["Gestão de turno","T&D","Qualidade e padrões","Comunicação"],
+    prox:["gerenteC","gerenteB"], alt:null
+  },
+  coordB: {
+    label:"Coord. Loja B", type:"g", cluster:"B", seniority:"Coord. Pleno",
+    fixo:3000, gorj:{min:1750,mid:2500,max:3250}, rv:{min:0,mid:375,max:750},
+    tot:{min:4750,mid:5875,max:7000},
+    tempo:"1 ano",
+    req:["Supervisão de seção","Gestão de escala básica","Relatórios de resultado","Mín. 1 ano como SR"],
+    comp:["Supervisão operacional","Organização","Foco em resultado","Proatividade"],
+    prox:["coordA","gerenteC"],
+    alt:"Atalho: após 1 ano, Coord. B pode avançar direto para Gerente C ou Gerente B — sem passar por Coord. A."
+  },
+  coordC: {
+    label:"Coord. Loja C", type:"g", cluster:"C", seniority:"Coord. Júnior",
+    fixo:2500, gorj:{min:1225,mid:1750,max:2275}, rv:{min:0,mid:200,max:400},
+    tot:{min:3725,mid:4450,max:5175},
+    tempo:"1 ano",
+    req:["Primeiro cargo de liderança","Apoio ao Coord. B","Controle básico de equipe","Progressão de Atendente/Assistente SR"],
+    comp:["Iniciativa","Comunicação","Trabalho em equipe","Comprometimento"],
+    prox:["coordB","gerenteC"],
+    alt:"Atalho: após 1 ano, Coord. C pode avançar direto para Gerente C — sem passar por Coord. B ou A."
+  },
+
+  /* ── SALÃO A ── */
+  atendJRa: {
+    label:"Atendente JR — Salão A", type:"e", cluster:"A", seniority:"Salão · Júnior",
+    fixo:1850, gorj:{min:850,mid:850,max:850}, rv:{min:600,mid:600,max:600},
+    tot:{min:3300,mid:3300,max:3300}, tempo:null,
+    req:["Posição de entrada","Treinamento inicial completo","Boa comunicação e disposição"],
+    comp:["Disposição","Comunicação","Aprendizado rápido","Pontualidade"],
+    prox:["atendPLa"], alt:null
+  },
+  atendPLa: {
+    label:"Atendente PL — Salão A", type:"e", cluster:"A", seniority:"Salão · Pleno",
+    fixo:1850, gorj:{min:1300,mid:1300,max:1300}, rv:{min:300,mid:300,max:300},
+    tot:{min:3450,mid:3450,max:3450}, tempo:"3 meses",
+    req:["Atendimento autônomo e consistente","Conhecimento do cardápio","Mín. 3 meses como JR"],
+    comp:["Atendimento","Produto","Responsabilidade","Trabalho em equipe"],
+    prox:["atendSRa"], alt:null
+  },
+  atendSRa: {
+    label:"Atendente SR — Salão A", type:"e", cluster:"A", seniority:"Salão · Sênior",
+    fixo:2200, gorj:{min:1800,mid:1800,max:1800}, rv:{min:0,mid:0,max:0},
+    tot:{min:4000,mid:4000,max:4000}, tempo:"1 ano",
+    req:["Domínio completo do salão A","Mentoria de JR e PL","Padrão de atendimento excelente","Mín. 1 ano como PL"],
+    comp:["Atendimento de excelência","Mentoria","Padronização","Autonomia"],
+    prox:["coordC","coordB","coordA"], alt:null
+  },
+
+  /* ── SALÃO B ── */
+  atendJRb: {
+    label:"Atendente JR — Salão B", type:"e", cluster:"B", seniority:"Salão · Júnior",
+    fixo:1850, gorj:{min:850,mid:850,max:850}, rv:{min:400,mid:400,max:400},
+    tot:{min:3100,mid:3100,max:3100}, tempo:null,
+    req:["Posição de entrada","Treinamento inicial","Boa comunicação e disposição"],
+    comp:["Disposição","Comunicação","Aprendizado"],
+    prox:["atendPLb"], alt:null
+  },
+  atendPLb: {
+    label:"Atendente PL — Salão B", type:"e", cluster:"B", seniority:"Salão · Pleno",
+    fixo:1850, gorj:{min:1300,mid:1300,max:1300}, rv:{min:200,mid:200,max:200},
+    tot:{min:3350,mid:3350,max:3350}, tempo:"3 meses",
+    req:["Atendimento autônomo","Conhecimento do cardápio","Mín. 3 meses como JR"],
+    comp:["Atendimento","Responsabilidade","Trabalho em equipe"],
+    prox:["atendSRb"], alt:null
+  },
+  atendSRb: {
+    label:"Atendente SR — Salão B", type:"e", cluster:"B", seniority:"Salão · Sênior",
+    fixo:2200, gorj:{min:1600,mid:1600,max:1600}, rv:{min:0,mid:0,max:0},
+    tot:{min:3800,mid:3800,max:3800}, tempo:"1 ano",
+    req:["Domínio do salão B","Mentoria de juniores e plenos","Padrão de atendimento","Mín. 1 ano como PL"],
+    comp:["Atendimento","Mentoria","Padronização","Autonomia"],
+    prox:["coordC","coordB"], alt:null
+  },
+
+  /* ── SALÃO C ── */
+  atendJRc: {
+    label:"Atendente JR — Salão C", type:"e", cluster:"C", seniority:"Salão · Júnior",
+    fixo:1850, gorj:{min:600,mid:600,max:600}, rv:{min:200,mid:200,max:200},
+    tot:{min:2650,mid:2650,max:2650}, tempo:null,
+    req:["Posição de entrada","Treinamento inicial","Boa comunicação e disposição"],
+    comp:["Disposição","Comunicação","Aprendizado"],
+    prox:["atendPLc"], alt:null
+  },
+  atendPLc: {
+    label:"Atendente PL — Salão C", type:"e", cluster:"C", seniority:"Salão · Pleno",
+    fixo:1850, gorj:{min:900,mid:900,max:900}, rv:{min:100,mid:100,max:100},
+    tot:{min:2850,mid:2850,max:2850}, tempo:"3 meses",
+    req:["Atendimento autônomo","Conhecimento do cardápio","Mín. 3 meses como JR"],
+    comp:["Atendimento","Responsabilidade","Trabalho em equipe"],
+    prox:["atendSRc"], alt:null
+  },
+  atendSRc: {
+    label:"Atendente SR — Salão C", type:"e", cluster:"C", seniority:"Salão · Sênior",
+    fixo:2200, gorj:{min:1400,mid:1400,max:1400}, rv:{min:0,mid:0,max:0},
+    tot:{min:3600,mid:3600,max:3600}, tempo:"1 ano",
+    req:["Domínio do salão C","Mentoria","Padrão de atendimento","Mín. 1 ano como PL"],
+    comp:["Atendimento","Mentoria","Padronização"],
+    prox:["coordC"], alt:null
+  },
+
+  /* ── COZ A ── */
+  assisJRa: {
+    label:"Assistente JR — Coz. A", type:"e", cluster:"A", seniority:"Cozinha · Júnior",
+    fixo:1850, gorj:{min:850,mid:850,max:850}, rv:{min:600,mid:600,max:600},
+    tot:{min:3300,mid:3300,max:3300}, tempo:null,
+    req:["Posição de entrada","Treinamento de boas práticas alimentares"],
+    comp:["Disposição","Higiene","Aprendizado rápido"],
+    prox:["assisPLa"], alt:null
+  },
+  assisPLa: {
+    label:"Assistente PL — Coz. A", type:"e", cluster:"A", seniority:"Cozinha · Pleno",
+    fixo:1850, gorj:{min:1200,mid:1200,max:1200}, rv:{min:300,mid:300,max:300},
+    tot:{min:3350,mid:3350,max:3350}, tempo:"3 meses",
+    req:["Operação autônoma de cozinha","Processos e padrões","Mín. 3 meses como JR"],
+    comp:["Técnica","Higiene","Responsabilidade","Trabalho em equipe"],
+    prox:["assisSRa"], alt:null
+  },
+  assisSRa: {
+    label:"Assistente SR — Coz. A", type:"e", cluster:"A", seniority:"Cozinha · Sênior",
+    fixo:2200, gorj:{min:2000,mid:2000,max:2000}, rv:{min:0,mid:0,max:0},
+    tot:{min:4200,mid:4200,max:4200}, tempo:"1 ano",
+    req:["Operação completa de cozinha","Controle de qualidade alimentar","Mentoria de assistentes","Mín. 1 ano como PL"],
+    comp:["Técnica culinária","Higiene e segurança","Mentoria","Autonomia"],
+    prox:["coordC","coordB","coordA"], alt:null
+  },
+
+  /* ── COZ B ── */
+  assisJRb: {
+    label:"Assistente JR — Coz. B", type:"e", cluster:"B", seniority:"Cozinha · Júnior",
+    fixo:1850, gorj:{min:850,mid:850,max:850}, rv:{min:400,mid:400,max:400},
+    tot:{min:3100,mid:3100,max:3100}, tempo:null,
+    req:["Posição de entrada","Treinamento de boas práticas alimentares"],
+    comp:["Disposição","Higiene","Aprendizado"],
+    prox:["assisPLb"], alt:null
+  },
+  assisPLb: {
+    label:"Assistente PL — Coz. B", type:"e", cluster:"B", seniority:"Cozinha · Pleno",
+    fixo:1850, gorj:{min:1000,mid:1000,max:1000}, rv:{min:200,mid:200,max:200},
+    tot:{min:3050,mid:3050,max:3050}, tempo:"3 meses",
+    req:["Operação autônoma","Mín. 3 meses como JR"],
+    comp:["Técnica","Responsabilidade","Trabalho em equipe"],
+    prox:["assisSRb"], alt:null
+  },
+  assisSRb: {
+    label:"Assistente SR — Coz. B", type:"e", cluster:"B", seniority:"Cozinha · Sênior",
+    fixo:2200, gorj:{min:1500,mid:1500,max:1500}, rv:{min:0,mid:0,max:0},
+    tot:{min:3700,mid:3700,max:3700}, tempo:"1 ano",
+    req:["Operação de cozinha B","Qualidade e padrão alimentar","Mentoria","Mín. 1 ano como PL"],
+    comp:["Técnica","Higiene","Mentoria","Padronização"],
+    prox:["coordC","coordB"], alt:null
+  },
+
+  /* ── COZ C ── */
+  assisJRc: {
+    label:"Assistente JR — Coz. C", type:"e", cluster:"C", seniority:"Cozinha · Júnior",
+    fixo:1850, gorj:{min:600,mid:600,max:600}, rv:{min:200,mid:200,max:200},
+    tot:{min:2650,mid:2650,max:2650}, tempo:null,
+    req:["Posição de entrada","Treinamento de boas práticas alimentares"],
+    comp:["Disposição","Higiene","Aprendizado"],
+    prox:["assisJRc"], alt:null
+  },
+  assisPLc: {
+    label:"Assistente PL — Coz. C", type:"e", cluster:"C", seniority:"Cozinha · Pleno",
+    fixo:1850, gorj:{min:750,mid:750,max:750}, rv:{min:100,mid:100,max:100},
+    tot:{min:2700,mid:2700,max:2700}, tempo:"3 meses",
+    req:["Operação autônoma","Mín. 3 meses como JR"],
+    comp:["Técnica","Responsabilidade","Trabalho em equipe"],
+    prox:["assisSRc"], alt:null
+  },
+  assisSRc: {
+    label:"Assistente SR — Coz. C", type:"e", cluster:"C", seniority:"Cozinha · Sênior",
+    fixo:2200, gorj:{min:1300,mid:1300,max:1300}, rv:{min:0,mid:0,max:0},
+    tot:{min:3500,mid:3500,max:3500}, tempo:"1 ano",
+    req:["Operação de cozinha C","Qualidade e padrão alimentar","Mentoria","Mín. 1 ano como PL"],
+    comp:["Técnica","Higiene","Mentoria"],
+    prox:["coordC"], alt:null
+  }
 };
 
-const PATHS={
+/* ─── FULL PATH CHAINS (standard) ─── */
+const STANDARD_PATHS = {
   assisJRa:["assisJRa","assisPLa","assisSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
   assisJRb:["assisJRb","assisPLb","assisSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
   assisJRc:["assisJRc","assisPLc","assisSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
@@ -144,7 +435,7 @@ const PATHS={
   atendSRa:["atendSRa","coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
   atendSRb:["atendSRb","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
   atendSRc:["atendSRc","coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
-  coordC:["coordC","coordB","gerenteC","gerenteB","gerenteA","regional"],
+  coordC:["coordC","coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
   coordB:["coordB","coordA","gerenteC","gerenteB","gerenteA","regional"],
   coordA:["coordA","gerenteC","gerenteB","gerenteA","regional"],
   gerenteC:["gerenteC","gerenteB","gerenteA","regional"],
@@ -153,202 +444,366 @@ const PATHS={
   regional:["regional"]
 };
 
-const ALTS={
-  coordC:"Atalho disponível: Coord. Loja C pode avançar diretamente para Gerente C, sem passar por Coord. B ou A, após cumprir 1 ano no cargo.",
-  coordB:"Atalho disponível: Coord. Loja B pode avançar diretamente para Gerente C ou Gerente B, sem passar por Coord. A, após cumprir 1 ano no cargo."
+/* Alt paths for coordB and coordC (skip levels) */
+const ALT_PATHS = {
+  coordC: { label:"Atalho — Direto para Gerência", path:["coordC","gerenteC","gerenteB","gerenteA","regional"] },
+  coordB: { label:"Atalho — Direto para Gerência", path:["coordB","gerenteC","gerenteB","gerenteA","regional"] }
 };
 
-const f=v=>v?'R$ '+v.toLocaleString('pt-BR'):'—';
-let cur='all',sel=null;
+/* ─────────────── HELPERS ─────────────── */
+const f = v => v ? 'R$ ' + v.toLocaleString('pt-BR') : '—';
 
-function setC(c,el){
-  cur=c;sel=null;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+let currentCluster = 'all';
+let selectedKey = null;
+
+function setCluster(c, el) {
+  currentCluster = c;
+  selectedKey = null;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
   el.classList.add('on');
-  document.getElementById('dp').classList.remove('open');
-  render();
+  document.getElementById('detail').classList.remove('open');
+  renderBoard();
 }
 
-function card(k){
-  const d=D[k];
-  const oc=d.t==='e'?' oc':'';
-  const sc=sel===k?' sel':'';
-  const range=d.tot.n===d.tot.x?f(d.tot.n):f(d.tot.n)+' – '+f(d.tot.x);
-  return`<div class="cd${oc}${sc}" id="c${k}" onclick="openD('${k}')">
-    <div class="cr">${d.l}</div>
-    <div class="cs">${d.s}</div>
-    <div class="cv${oc}">${range}</div>
-    <div class="bgs">
-      <span class="bg gr">Cluster ${d.c==='all'?'Todas':d.c}</span>
-      ${d.tempo?`<span class="bg o">⏱ ${d.tempo}</span>`:''}
-      ${d.rv.b>0?`<span class="bg g">+RV ${f(d.rv.b)}</span>`:''}
+function visible(k) {
+  return currentCluster === 'all' || D[k].cluster === currentCluster || D[k].cluster === 'all';
+}
+
+/* ─────────────── CARD HTML ─────────────── */
+function cardHTML(k) {
+  const d = D[k];
+  const eq = d.type === 'e';
+  const sel = selectedKey === k;
+  const range = d.tot.min === d.tot.max
+    ? f(d.tot.min)
+    : f(d.tot.min) + ' – ' + f(d.tot.max);
+  return `<div class="card${eq?' eq':''}${sel?' active':''}" id="card-${k}" onclick="openDetail('${k}')">
+    <div class="card-title">${d.label}</div>
+    <div class="card-sub">${d.seniority}</div>
+    <div class="card-range${eq?' eq':''}">${range}</div>
+    <div class="tags">
+      <span class="tag cluster">Cluster ${d.cluster==='all'?'Todas':d.cluster}</span>
+      ${d.tempo ? `<span class="tag ${d.tempo==='3 meses'?'time-orange':'time-green'}">⏱ ${d.tempo}</span>` : ''}
+      ${d.rv.max > 0 ? `<span class="tag rv">+RV ${f(d.rv.max)}</span>` : ''}
     </div>
   </div>`;
 }
 
-function arrow(lbl){
-  return`<div class="ar">
-    <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="18 10 12 4 6 10"/></svg>
-    <span>${lbl}</span>
+function arrowHTML(label) {
+  return `<div class="arrow-sep">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#43A047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+    </svg>
+    <span>${label}</span>
   </div>`;
 }
 
-function render(){
-  const sh=k=>cur==='all'||(D[k].c===cur||D[k].c==='all');
-  let h='';
-  h+=`<div class="tg"><div class="tt">Estratégico — Coordenação Regional</div><div class="nr">${card('regional')}</div></div>`;
-  h+=arrow('1 ano como Gerente A');
-  let g='';['gerenteA','gerenteB','gerenteC'].forEach(k=>{if(sh(k))g+=card(k);});
-  if(g){
-    h+=`<div class="tg"><div class="tt">Gerência de loja</div><div class="nr">${g}</div></div>`;
-    h+=arrow('1 ano — Coord. Loja B ou C podem ir direto para Gerente C ou B');
-  }
-  let co='';['coordA','coordB','coordC'].forEach(k=>{if(sh(k))co+=card(k);});
-  if(co){
-    h+=`<div class="tg"><div class="tt">Coordenação de loja</div><div class="nr">${co}</div></div>`;
-    h+=arrow('1 ano como Atendente/Assistente SR — porta de entrada para liderança');
-  }
-  let sa='';['atendSRa','atendPLa','atendJRa','atendSRb','atendPLb','atendJRb','atendSRc','atendPLc','atendJRc'].forEach(k=>{if(sh(k))sa+=card(k);});
-  if(sa){h+=`<div class="tg"><div class="tt orange">Equipe de salão</div><div class="nr">${sa}</div></div>`;}
-  let cz='';['assisSRa','assisPLa','assisJRa','assisSRb','assisPLb','assisJRb','assisSRc','assisPLc','assisJRc'].forEach(k=>{if(sh(k))cz+=card(k);});
-  if(cz){h+=`<div class="tg"><div class="tt orange">Equipe de cozinha</div><div class="nr">${cz}</div></div>`;}
-  document.getElementById('area').innerHTML=h;
+/* ─────────────── BOARD ─────────────── */
+function renderBoard() {
+  const area = document.getElementById('area');
+  let h = '';
+
+  // Regional
+  h += `<div class="section"><div class="section-title">Estratégico — Coordenação Regional</div><div class="cards-row">${cardHTML('regional')}</div></div>`;
+  h += arrowHTML('1 ano como Gerente A');
+
+  // Gerentes
+  let g = ''; ['gerenteA','gerenteB','gerenteC'].forEach(k => { if(visible(k)) g += cardHTML(k); });
+  if (g) { h += `<div class="section"><div class="section-title">Gerência de Loja</div><div class="cards-row">${g}</div></div>`; h += arrowHTML('1 ano — Coord. B ou C podem ir direto para Gerente C/B'); }
+
+  // Coordenadores
+  let co = ''; ['coordA','coordB','coordC'].forEach(k => { if(visible(k)) co += cardHTML(k); });
+  if (co) { h += `<div class="section"><div class="section-title">Coordenação de Loja</div><div class="cards-row">${co}</div></div>`; h += arrowHTML('1 ano como Atendente/Assistente SR'); }
+
+  // Salão
+  let sa = ''; ['atendSRa','atendPLa','atendJRa','atendSRb','atendPLb','atendJRb','atendSRc','atendPLc','atendJRc'].forEach(k => { if(visible(k)) sa += cardHTML(k); });
+  if (sa) h += `<div class="section"><div class="section-title eq">Equipe de Salão</div><div class="cards-row">${sa}</div></div>`;
+
+  // Cozinha
+  let cz = ''; ['assisSRa','assisPLa','assisJRa','assisSRb','assisPLb','assisJRb','assisSRc','assisPLc','assisJRc'].forEach(k => { if(visible(k)) cz += cardHTML(k); });
+  if (cz) h += `<div class="section"><div class="section-title eq">Equipe de Cozinha</div><div class="cards-row">${cz}</div></div>`;
+
+  area.innerHTML = h;
 }
 
-function buildSVG(key){
-  const path=PATHS[key];
-  if(!path||path.length<2)return'';
-  const nW=130,nH=46,gX=12,gY=54,cols=5;
-  const rows=Math.ceil(path.length/cols);
-  const usedW=cols*(nW+gX)-gX;
-  const x0=Math.max(8,(760-usedW)/2);
-  const svgH=rows*(nH+gY)+16;
-  const W=760;
+/* ─────────────── TIMELINE SVG ─────────────── */
+function buildTimeline(key) {
+  const stdPath = STANDARD_PATHS[key];
+  const altObj  = ALT_PATHS[key] || null;
+  if (!stdPath || stdPath.length < 2) return '';
 
-  const clrFill=(k,isCur)=>{
-    if(isCur)return{fill:'#E8F5E9',stroke:'#2E7D32',sw:2,tc:'#1B5E20',sc:'#2E7D32'};
-    if(k==='regional')return{fill:'#1B5E20',stroke:'#1B5E20',sw:1,tc:'#fff',sc:'#C8E6C9'};
-    if(D[k].t==='g')return{fill:'#EAF3DE',stroke:'#4CAF50',sw:1,tc:'#1B5E20',sc:'#2E7D32'};
-    return{fill:'#F5F5F5',stroke:'#E0E0E0',sw:1,tc:'#1A1A1A',sc:'#616161'};
-  };
+  function timelineRow(path, isCurrent) {
+    const EQ = d => D[d].type === 'e';
+    const ROW_H = 130;
+    const DOT_Y = 36;
+    const CARD_TOP = DOT_Y + 14;
+    const CARD_H = 52;
+    const n = path.length;
 
-  let s=`<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 ${W} ${svgH}">`;
-  s+=`<defs><marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+    // Compute per-stop width evenly
+    const stopW = Math.max(110, Math.floor(640 / n));
+    const svgW = stopW * n + 20;
+    const svgH = ROW_H;
 
-  path.forEach((k,i)=>{
-    const col=i%cols,row=Math.floor(i/cols);
-    const x=x0+col*(nW+gX),y=8+row*(nH+gY);
-    const cx=x+nW/2,cy=y+nH/2;
-    const isCur=k===key;
-    const clr=clrFill(k,isCur);
-    const range=D[k].tot.n===D[k].tot.x?f(D[k].tot.n):f(D[k].tot.n)+'+';
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 ${svgW} ${svgH}" style="min-width:${Math.min(svgW,640)}px">`;
 
-    s+=`<rect x="${x}" y="${y}" width="${nW}" height="${nH}" rx="7" fill="${clr.fill}" stroke="${clr.stroke}" stroke-width="${clr.sw}"/>`;
-    s+=`<text x="${cx}" y="${cy-6}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="10" font-weight="600" fill="${clr.tc}">${D[k].l}</text>`;
-    s+=`<text x="${cx}" y="${cy+9}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="9" fill="${clr.sc}">${range}</text>`;
+    // Spine line
+    const spineX1 = stopW / 2;
+    const spineX2 = svgW - stopW / 2;
+    svg += `<line x1="${spineX1}" y1="${DOT_Y}" x2="${spineX2}" y2="${DOT_Y}" stroke="#A5D6A7" stroke-width="2"/>`;
 
-    if(i<path.length-1){
-      const ni=i+1,nc=ni%cols,nr=Math.floor(ni/cols);
-      const nx=x0+nc*(nW+gX),ny=8+nr*(nH+gY);
-      const ncx=nx+nW/2;
-      const tl=D[path[ni]].tempo||'';
-      const isAlt=(key==='coordC'||key==='coordB')&&(path[ni]==='gerenteC'||path[ni]==='gerenteB')&&D[k].t==='g';
-      const lineClr=isAlt?'#E65100':'#2E7D32';
-      const dash=isAlt?'stroke-dasharray="5 3"':'';
-      if(nr===row){
-        const x1=x+nW,y1=cy,x2=nx;
-        s+=`<line x1="${x1}" y1="${y1}" x2="${x2-3}" y2="${ny+nH/2}" stroke="${lineClr}" stroke-width="1.2" ${dash} marker-end="url(#ma)"/>`;
-        if(tl){const mx=(x1+x2)/2;s+=`<rect x="${mx-20}" y="${y1-17}" width="40" height="13" rx="4" fill="${D[path[ni]].tempo==='3 meses'?'#FFF3E0':'#F5F5F5'}"/><text x="${mx}" y="${y1-10}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,sans-serif" font-size="8" font-weight="600" fill="${D[path[ni]].tempo==='3 meses'?'#E65100':'#2E7D32'}">${tl}</text>`;}
-      } else {
-        const ty=y+nH+gY/2;
-        s+=`<path d="M ${cx} ${y+nH} L ${cx} ${ty} L ${ncx} ${ty} L ${ncx} ${ny-2}" stroke="${lineClr}" stroke-width="1.2" fill="none" ${dash} marker-end="url(#ma)"/>`;
-        if(tl){s+=`<rect x="${cx+4}" y="${ty-14}" width="38" height="13" rx="4" fill="${D[path[ni]].tempo==='3 meses'?'#FFF3E0':'#F5F5F5'}"/><text x="${cx+23}" y="${ty-7}" text-anchor="middle" dominant-baseline="central" font-family="-apple-system,sans-serif" font-size="8" font-weight="600" fill="${D[path[ni]].tempo==='3 meses'?'#E65100':'#2E7D32'}">${tl}</text>`;}
+    path.forEach((k, i) => {
+      const d = D[k];
+      const cx = stopW / 2 + i * stopW;
+      const isCur = (k === key);
+      const isTop = (k === 'regional');
+      const isEq = EQ(k);
+      const nextK = path[i + 1];
+      const nextD = nextK ? D[nextK] : null;
+      const timeLabel = nextD ? (nextD.tempo || '') : '';
+
+      // Connector between this dot and next
+      if (nextK) {
+        const nx = stopW / 2 + (i + 1) * stopW;
+        const isAlt = isCurrent === 'alt';
+        svg += `<line x1="${cx + 7}" y1="${DOT_Y}" x2="${nx - 7}" y2="${DOT_Y}"
+          stroke="${isAlt ? '#F57C00' : '#43A047'}" stroke-width="2"
+          ${isAlt ? 'stroke-dasharray="6 3"' : ''}/>`;
+        // Arrow head
+        svg += `<polyline points="${nx-12},${DOT_Y-5} ${nx-6},${DOT_Y} ${nx-12},${DOT_Y+5}"
+          fill="none" stroke="${isAlt ? '#F57C00' : '#43A047'}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+        // Time badge between stops
+        if (timeLabel) {
+          const mx = cx + stopW / 2;
+          const isOrange = timeLabel === '3 meses';
+          svg += `<rect x="${mx - 22}" y="${DOT_Y - 23}" width="44" height="14" rx="5"
+            fill="${isOrange ? '#FFF3E0' : '#E8F5E9'}"/>`;
+          svg += `<text x="${mx}" y="${DOT_Y - 12}" text-anchor="middle"
+            font-family="-apple-system,sans-serif" font-size="8" font-weight="600"
+            fill="${isOrange ? '#E65100' : '#2E7D32'}">${timeLabel}</text>`;
+        }
       }
-    }
-  });
-  s+='</svg>';
-  return s;
+
+      // Dot
+      const dotFill = isCur ? '#2E7D32' : isTop ? '#1B5E20' : isEq ? '#FFF3E0' : '#E8F5E9';
+      const dotStroke = isCur ? '#2E7D32' : isTop ? '#1B5E20' : isEq ? '#E65100' : '#43A047';
+      const dotR = isCur || isTop ? 9 : 7;
+      if (isCur) {
+        svg += `<circle cx="${cx}" cy="${DOT_Y}" r="14" fill="#E8F5E9" opacity="0.7"/>`;
+      }
+      svg += `<circle cx="${cx}" cy="${DOT_Y}" r="${dotR}" fill="${dotFill}" stroke="${dotStroke}" stroke-width="2"/>`;
+      if (isCur) {
+        svg += `<text x="${cx}" y="${DOT_Y + 1}" text-anchor="middle" dominant-baseline="central"
+          font-family="-apple-system,sans-serif" font-size="8" font-weight="700" fill="#fff">●</text>`;
+      }
+
+      // Card below dot
+      const cw = stopW - 10;
+      const cx0 = cx - cw / 2;
+      const cardFill = isCur ? '#E8F5E9' : isTop ? '#1B5E20' : '#fff';
+      const cardStroke = isCur ? '#2E7D32' : isTop ? '#1B5E20' : isEq ? '#F57C00' : '#C8E6C9';
+      const sw = isCur || isTop ? 1.5 : 1;
+
+      svg += `<rect x="${cx0}" y="${CARD_TOP}" width="${cw}" height="${CARD_H}" rx="7"
+        fill="${cardFill}" stroke="${cardStroke}" stroke-width="${sw}"/>`;
+      // bottom accent
+      const accentColor = isEq ? '#E65100' : '#2E7D32';
+      svg += `<rect x="${cx0}" y="${CARD_TOP + CARD_H - 3}" width="${cw}" height="3" rx="0 0 7 7"
+        fill="${accentColor}" opacity="0.7"/>`;
+
+      // Title (truncate)
+      const shortName = d.label.replace(' — ', '\n').replace(' - ', '\n');
+      const lines = shortName.split('\n');
+      const titleColor = isTop ? '#fff' : '#1a1a1a';
+      const salColor = isTop ? '#A5D6A7' : isEq ? '#E65100' : '#2E7D32';
+      const salStr = d.tot.min === d.tot.max ? f(d.tot.min) : f(d.tot.min) + '+';
+
+      if (lines.length > 1) {
+        svg += `<text x="${cx}" y="${CARD_TOP + 14}" text-anchor="middle"
+          font-family="-apple-system,sans-serif" font-size="9" font-weight="600" fill="${titleColor}">${lines[0]}</text>`;
+        svg += `<text x="${cx}" y="${CARD_TOP + 26}" text-anchor="middle"
+          font-family="-apple-system,sans-serif" font-size="8.5" font-weight="500" fill="${titleColor}">${lines[1]}</text>`;
+      } else {
+        svg += `<text x="${cx}" y="${CARD_TOP + 18}" text-anchor="middle"
+          font-family="-apple-system,sans-serif" font-size="9" font-weight="600" fill="${titleColor}">${lines[0]}</text>`;
+      }
+      svg += `<text x="${cx}" y="${CARD_TOP + 38}" text-anchor="middle"
+        font-family="-apple-system,sans-serif" font-size="9" font-weight="600" fill="${salColor}">${salStr}</text>`;
+      const clusterTxt = d.cluster === 'all' ? 'Todas' : 'Cluster ' + d.cluster;
+      svg += `<text x="${cx}" y="${CARD_TOP + 49}" text-anchor="middle"
+        font-family="-apple-system,sans-serif" font-size="8" fill="${isTop ? '#A5D6A7' : '#9E9E9E'}">${clusterTxt}</text>`;
+    });
+
+    svg += '</svg>';
+    return svg;
+  }
+
+  // Build standard path
+  let html = `<div class="tl-outer">${timelineRow(stdPath, 'std')}</div>`;
+
+  // Build alt path if available
+  if (altObj) {
+    html += `<div class="tl-fork">
+      <div class="fork-label">
+        <span style="font-size:14px">↔</span>
+        <strong style="color:var(--orange)">${altObj.label}</strong>
+        <span style="color:var(--text-s)">— opção para quem está neste cargo</span>
+      </div>
+      <div class="tl-outer">${timelineRow(altObj.path, 'alt')}</div>
+    </div>`;
+  }
+
+  // Time total estimate
+  const tempos = stdPath.map(k => D[k].tempo || null).filter(Boolean);
+  const meses = tempos.reduce((acc, t) => {
+    if (t === '3 meses') return acc + 3;
+    if (t === '1 ano') return acc + 12;
+    return acc;
+  }, 0);
+  const anos = Math.floor(meses / 12);
+  const mesRest = meses % 12;
+  const tempoStr = anos > 0 ? `${anos} ano${anos>1?'s':''}${mesRest > 0 ? ` e ${mesRest} mese${mesRest>1?'s':''}` : ''}` : `${meses} meses`;
+
+  html += `<div class="tl-legend">
+    <div class="tl-leg"><circle class="tl-leg-dot" style="background:#2E7D32;border-radius:50%;width:10px;height:10px;display:inline-block"></circle>Cargo atual</div>
+    <div class="tl-leg"><circle class="tl-leg-dot" style="background:#1B5E20;border-radius:50%;width:10px;height:10px;display:inline-block"></circle>Destino final</div>
+    <div class="tl-leg"><circle class="tl-leg-dot" style="background:#E8F5E9;border:1.5px solid #43A047;border-radius:50%;width:10px;height:10px;display:inline-block"></circle>Gestão</div>
+    <div class="tl-leg"><circle class="tl-leg-dot" style="background:#FFF3E0;border:1.5px solid #E65100;border-radius:50%;width:10px;height:10px;display:inline-block"></circle>Equipe</div>
+    <div class="tl-leg" style="margin-left:auto;background:var(--green-light);padding:3px 10px;border-radius:8px;color:var(--green-dark);font-weight:600">⏱ Tempo estimado até o topo: <strong>${tempoStr}</strong></div>
+  </div>`;
+
+  return html;
 }
 
-function openD(key){
-  sel=key;
-  document.querySelectorAll('.cd').forEach(c=>c.classList.remove('sel'));
-  const el=document.getElementById('c'+key);
-  if(el)el.classList.add('sel');
-  const d=D[key];
-  const pp=Math.round((d.tot.m/d.tot.x)*100);
-  const alt=ALTS[key]?`<div class="altnt">↔ ${ALTS[key]}</div>`:'';
-  const px=d.prox&&d.prox.length
-    ?d.prox.map(k=>`<span class="bg g" style="padding:4px 9px;font-size:10px">${D[k].l}</span>`).join(' ')
-    :`<span style="font-size:11px;color:var(--ts)">Topo da carreira — nível máximo</span>`;
-  const tBadge=d.tempo
-    ?`<span class="tbadge">⏱ Mín. ${d.tempo} no cargo</span>`
-    :`<span class="bg gr" style="padding:2px 8px;font-size:9px">Cargo de entrada</span>`;
-  const gorj=d.g.a===d.g.b?f(d.g.a):`${f(d.g.a)} – ${f(d.g.b)}`;
-  const svg=buildSVG(key);
-  const panel=document.getElementById('dp');
-  panel.innerHTML=`
-    <div class="dph">
+/* ─────────────── DETAIL PANEL ─────────────── */
+function openDetail(key) {
+  selectedKey = key;
+  // refresh active state on cards
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  const el = document.getElementById('card-' + key);
+  if (el) el.classList.add('active');
+
+  const d = D[key];
+  const eq = d.type === 'e';
+  const pp = Math.round((d.tot.mid / d.tot.max) * 100);
+  const tBadge = d.tempo
+    ? `<span class="tag ${d.tempo==='3 meses'?'time-orange':'time-green'}" style="font-size:10px;padding:3px 8px">⏱ Mín. ${d.tempo} no cargo</span>`
+    : `<span class="tag cluster" style="font-size:10px;padding:3px 8px">Cargo de entrada</span>`;
+
+  const proxHTML = d.prox.length
+    ? d.prox.map(k => `<span class="next-tag">${D[k].label}</span>`).join('')
+    : `<span style="font-size:11px;color:var(--text-s)">Topo da carreira</span>`;
+
+  const altHTML = d.alt
+    ? `<div class="alt-note">↔ ${d.alt}</div>` : '';
+
+  const tlHTML = buildTimeline(key);
+
+  const panel = document.getElementById('detail');
+  panel.innerHTML = `
+    <div class="detail-header">
       <div>
-        <div class="dptit">${d.l}</div>
-        <div class="dpsub">${d.s}&nbsp;&nbsp;${tBadge}</div>
+        <div class="detail-title">${d.label}</div>
+        <div class="detail-meta">${d.seniority} &nbsp;·&nbsp; Cluster ${d.cluster==='all'?'Todas as lojas':d.cluster} &nbsp; ${tBadge}</div>
       </div>
-      <button class="dpclose" onclick="closeD()">×</button>
+      <button class="close-btn" onclick="closeDetail()">×</button>
     </div>
-    <div class="dpcols">
-      <div>
-        <div class="dps">
-          <div class="dpst">💰 Remuneração PJ</div>
-          <div class="cg">
-            <div class="cb"><div class="cbl">Fixo</div><div class="cbv">${f(d.fixo)}</div></div>
-            <div class="cb"><div class="cbl">Gorjeta</div><div class="cbv">${gorj}</div></div>
-            <div class="cb"><div class="cbl">RV máx</div><div class="cbv" style="color:var(--o)">${d.rv.b?f(d.rv.b):'—'}</div></div>
+    <div class="detail-body">
+      <div class="info-grid">
+        <!-- LEFT -->
+        <div>
+          <div class="comp-section">
+            <div class="sec-label">💰 Remuneração PJ — Faixas</div>
+            <div class="comp-boxes">
+              <div class="comp-box">
+                <div class="lbl">Fixo mensal</div>
+                <div class="val">${f(d.fixo)}</div>
+              </div>
+              <div class="comp-box">
+                <div class="lbl">Gorjeta (mid)</div>
+                <div class="val">${f(d.gorj.mid)}</div>
+              </div>
+              <div class="comp-box">
+                <div class="lbl">RV máximo</div>
+                <div class="val orange">${d.rv.max ? f(d.rv.max) : '—'}</div>
+              </div>
+            </div>
+            <div class="comp-boxes" style="margin-top:4px">
+              <div class="comp-box">
+                <div class="lbl">Total mínimo</div>
+                <div class="val" style="font-size:11px">${f(d.tot.min)}</div>
+              </div>
+              <div class="comp-box">
+                <div class="lbl">Total médio</div>
+                <div class="val" style="font-size:11px;color:var(--green-dark)">${f(d.tot.mid)}</div>
+              </div>
+              <div class="comp-box">
+                <div class="lbl">Total máximo</div>
+                <div class="val" style="font-size:11px">${f(d.tot.max)}</div>
+              </div>
+            </div>
+            <div class="range-row"><span>Faixa total</span><span>${f(d.tot.min)} – ${f(d.tot.max)}</span></div>
+            <div class="progress-track"><div class="progress-fill" style="width:${pp}%"></div></div>
+            <div class="mid-label">Mid: ${f(d.tot.mid)}</div>
           </div>
-          <div style="font-size:11px;color:var(--ts);display:flex;justify-content:space-between;margin-bottom:3px"><span>Faixa total</span><span style="font-weight:600">${f(d.tot.n)} – ${f(d.tot.x)}</span></div>
-          <div class="pw"><div class="pb" style="width:${pp}%"></div></div>
-          <div style="font-size:10px;color:var(--ts);margin-top:3px">Mid: ${f(d.tot.m)}</div>
+
+          <div class="req-list-section" style="margin-top:16px">
+            <div class="sec-label">✅ Requisitos para o cargo</div>
+            <ul class="req-list">${d.req.map(r=>`<li>${r}</li>`).join('')}</ul>
+          </div>
         </div>
-        <div class="dps">
-          <div class="dpst">✅ Requisitos para o cargo</div>
-          <ul class="rl">${d.req.map(r=>`<li>${r}</li>`).join('')}</ul>
+        <!-- RIGHT -->
+        <div>
+          <div class="sec-label">⭐ Competências esperadas</div>
+          <div class="comp-tags">${d.comp.map(c=>`<span class="comp-tag">${c}</span>`).join('')}</div>
+
+          <div style="margin-top:16px">
+            <div class="sec-label">↑ Próximos passos na trilha</div>
+            <div class="next-row">${proxHTML}</div>
+            ${altHTML}
+          </div>
+
+          ${d.gorj.min !== d.gorj.max ? `
+          <div style="margin-top:16px">
+            <div class="sec-label">📊 Detalhamento de gorjeta</div>
+            <div class="comp-boxes">
+              <div class="comp-box"><div class="lbl">Gorjeta mín</div><div class="val" style="font-size:11px">${f(d.gorj.min)}</div></div>
+              <div class="comp-box"><div class="lbl">Gorjeta mid</div><div class="val" style="font-size:11px">${f(d.gorj.mid)}</div></div>
+              <div class="comp-box"><div class="lbl">Gorjeta máx</div><div class="val" style="font-size:11px">${f(d.gorj.max)}</div></div>
+            </div>
+          </div>` : ''}
+
+          ${d.rv.max > 0 ? `
+          <div style="margin-top:16px">
+            <div class="sec-label">🎯 Detalhamento de RV</div>
+            <div class="comp-boxes">
+              <div class="comp-box"><div class="lbl">RV mínimo</div><div class="val orange" style="font-size:11px">${f(d.rv.min)}</div></div>
+              <div class="comp-box"><div class="lbl">RV médio</div><div class="val orange" style="font-size:11px">${f(d.rv.mid)}</div></div>
+              <div class="comp-box"><div class="lbl">RV máximo</div><div class="val orange" style="font-size:11px">${f(d.rv.max)}</div></div>
+            </div>
+          </div>` : ''}
         </div>
       </div>
-      <div>
-        <div class="dps">
-          <div class="dpst">⭐ Competências esperadas</div>
-          <div class="bgs" style="gap:6px">${d.comp.map(c=>`<span class="bg g">${c}</span>`).join('')}</div>
-        </div>
-        <div class="dps">
-          <div class="dpst">↑ Próximos passos na trilha</div>
-          <div style="display:flex;gap:5px;flex-wrap:wrap">${px}</div>
-          ${alt}
-        </div>
-      </div>
+
+      <!-- TIMELINE -->
+      ${tlHTML ? `<div class="timeline-section">
+        <div class="timeline-header">🗺 Jornada até o topo — a partir de <span style="color:var(--green-dark);margin-left:4px">${d.label}</span></div>
+        ${tlHTML}
+      </div>` : ''}
     </div>
-    ${svg?`<div class="jrn">
-      <div class="jtit">🗺 Jornada completa até o topo — a partir de ${d.l}</div>
-      <div class="jsvg-wrap">${svg}</div>
-      <div style="font-size:10px;color:var(--ts);margin-top:8px;display:flex;gap:14px;flex-wrap:wrap">
-        <span><span style="display:inline-block;width:8px;height:8px;background:#E8F5E9;border:2px solid #2E7D32;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Cargo atual</span>
-        <span><span style="display:inline-block;width:8px;height:8px;background:#1B5E20;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Destino final</span>
-        <span><span style="display:inline-block;width:8px;height:8px;background:#EAF3DE;border:1px solid #4CAF50;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Gestão</span>
-        <span><span style="display:inline-block;width:8px;height:8px;background:#F5F5F5;border:1px solid #E0E0E0;border-radius:2px;vertical-align:middle;margin-right:3px"></span>Equipe</span>
-        <span><span style="background:var(--ol);color:var(--o);font-size:9px;padding:1px 5px;border-radius:4px;font-weight:600">3m</span> = 3 meses</span>
-        <span><span style="background:var(--gl);color:var(--gd);font-size:9px;padding:1px 5px;border-radius:4px;font-weight:600">1a</span> = 1 ano</span>
-      </div>
-    </div>`:''}
   `;
   panel.classList.add('open');
-  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function closeD(){
-  sel=null;
-  document.getElementById('dp').classList.remove('open');
-  document.querySelectorAll('.cd').forEach(c=>c.classList.remove('sel'));
+function closeDetail() {
+  selectedKey = null;
+  document.getElementById('detail').classList.remove('open');
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
 }
 
-render();
+/* ─── INIT ─── */
+renderBoard();
 </script>
 </body>
 </html>
