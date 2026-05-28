@@ -4,31 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trilha de Carreira — Operações Cabana Burger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1a1a1a}
+body{font-family:'Inter',system-ui,sans-serif;background:#F0EDE4;color:#1a1a1a;min-height:100vh;display:flex;flex-direction:column}
 :root{
   --green:#2E7D32;--green-light:#E8F5E9;--green-mid:#43A047;--green-dark:#1B5E20;
-  --orange:#E65100;--orange-light:#FFF3E0;--orange-mid:#F57C00;
-  --gray:#F5F5F5;--gray-b:#E0E0E0;--text-s:#616161;--white:#fff
+  --orange:#E84E1B;--orange-light:#FFF3E0;--orange-mid:#F57C00;
+  --cream:#F0EDE4;--cream-card:#FAFAF7;
+  --gray:#E8E4DB;--gray-b:#D8D4CB;--text-s:#6B6860;--white:#fff
 }
-.page{max-width:980px;margin:0 auto;padding:36px 24px}
 
-/* HEADER */
-.header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.accent-bar{width:5px;height:32px;background:var(--green);border-radius:3px;flex-shrink:0}
-h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
-.subtitle{font-size:12px;color:var(--text-s);margin-bottom:24px;padding-left:17px}
+/* ── NAVBAR ── */
+.navbar{background:#1B5E20;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
+.nav-left{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:34px;height:34px;background:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-icon svg{width:20px;height:20px}
+.nav-brand{font-family:'Playfair Display',Georgia,serif;font-size:20px;color:#fff;letter-spacing:-.3px}
+.nav-brand sup{font-family:'Inter',sans-serif;font-size:9px;vertical-align:super;letter-spacing:0}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-tag{font-size:10px;font-weight:600;letter-spacing:.8px;color:#fff;border:1px solid rgba(255,255,255,.4);padding:4px 12px;border-radius:20px;text-transform:uppercase}
+.nav-units{font-size:11px;color:rgba(255,255,255,.7);font-weight:500}
+.nav-name{font-size:11px;color:rgba(255,255,255,.9);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+
+/* ── PAGE ── */
+.page{max-width:980px;margin:0 auto;padding:32px 24px;flex:1}
+
+/* ── PAGE HEADER ── */
+.page-header{margin-bottom:24px}
+.page-header-inner{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.accent-bar{width:4px;height:26px;background:var(--orange);border-radius:2px;flex-shrink:0}
+h1{font-family:'Inter',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
+.subtitle{font-size:12px;color:var(--text-s);padding-left:14px}
+
+/* ── FOOTER ── */
+.footer{background:var(--orange);padding:22px 28px;text-align:center}
+.footer-brand{font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#fff;letter-spacing:-.2px}
+.footer-brand sup{font-family:'Inter',sans-serif;font-size:10px;vertical-align:super;letter-spacing:0}
+.footer-sub{font-size:11px;color:rgba(255,255,255,.85);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;font-weight:500}
 
 /* LEGEND */
-.legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 16px;background:var(--gray);border-radius:8px;margin-bottom:20px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 16px;background:var(--cream-card);border:1px solid var(--gray-b);border-radius:10px;margin-bottom:20px}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-s)}
 .leg-dot{width:9px;height:9px;border-radius:50%}
 .leg-pill{font-size:9px;padding:2px 6px;border-radius:8px;font-weight:600}
 
 /* CLUSTER TABS */
 .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
-.tab{padding:6px 18px;border-radius:20px;border:1.5px solid var(--gray-b);font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:var(--text-s);transition:all .18s}
+.tab{padding:6px 18px;border-radius:20px;border:1.5px solid var(--gray-b);font-size:12px;font-weight:500;cursor:pointer;background:var(--cream-card);color:var(--text-s);transition:all .18s}
 .tab.on{background:var(--green);color:#fff;border-color:var(--green)}
 .tab:hover:not(.on){border-color:var(--green);color:var(--green)}
 
@@ -39,7 +63,7 @@ h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
 .cards-row{display:flex;gap:9px;flex-wrap:wrap}
 
 /* CARD */
-.card{background:#fff;border:1px solid var(--gray-b);border-radius:10px;padding:13px 15px;min-width:150px;flex:1;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.card{background:var(--cream-card);border:1px solid var(--gray-b);border-radius:10px;padding:13px 15px;min-width:150px;flex:1;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green)}
 .card.eq::before{background:var(--orange)}
 .card:hover{box-shadow:0 4px 18px rgba(46,125,50,.13);transform:translateY(-2px)}
@@ -62,7 +86,7 @@ h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
 .arrow-sep span{font-size:10px;color:var(--text-s)}
 
 /* DETAIL PANEL */
-.detail{border:1.5px solid var(--gray-b);border-radius:14px;margin-top:10px;overflow:hidden;display:none;animation:slide-in .22s ease}
+.detail{border:1.5px solid var(--gray-b);border-radius:14px;margin-top:10px;overflow:hidden;display:none;animation:slide-in .22s ease;background:var(--cream-card)}
 .detail.open{display:block}
 @keyframes slide-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
@@ -80,7 +104,7 @@ h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
 .comp-section{}
 .sec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text-s);margin-bottom:9px}
 .comp-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:11px}
-.comp-box{background:var(--gray);border-radius:8px;padding:9px 8px;text-align:center}
+.comp-box{background:var(--gray);border-radius:8px;padding:9px 8px;text-align:center;border:1px solid var(--gray-b)}
 .comp-box .lbl{font-size:9px;color:var(--text-s);margin-bottom:3px}
 .comp-box .val{font-size:13px;font-weight:600;color:#1a1a1a}
 .comp-box .val.orange{color:var(--orange)}
@@ -109,7 +133,6 @@ h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
 
 .tl-outer{overflow-x:auto;padding-bottom:6px}
 .tl-canvas{position:relative;min-width:640px}
-
 /* horizontal spine */
 .tl-spine{position:absolute;top:36px;left:0;right:0;height:2px;background:linear-gradient(to right, var(--green-mid), var(--green-dark))}
 
@@ -136,7 +159,7 @@ h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
 .tl-time.blank{background:transparent;color:transparent}
 
 /* card below dot */
-.tl-card{background:#fff;border:1px solid var(--gray-b);border-radius:8px;padding:8px 10px;margin-top:7px;width:calc(100% - 10px);text-align:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.tl-card{background:var(--cream-card);border:1px solid var(--gray-b);border-radius:8px;padding:8px 10px;margin-top:7px;width:calc(100% - 10px);text-align:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
 .tl-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2.5px;background:var(--green)}
 .tl-card.eq::before{background:var(--orange)}
 .tl-card.current-card{border-color:var(--green);box-shadow:0 0 0 2px var(--green-light)}
@@ -162,13 +185,36 @@ h1{font-size:21px;font-weight:600;letter-spacing:-.3px;color:#1a1a1a}
 </style>
 </head>
 <body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="#fff"/>
+        <path d="M20 8C13.373 8 8 13.373 8 20s5.373 12 12 12 12-5.373 12-12S26.627 8 20 8z" fill="#2E7D32"/>
+        <path d="M16 20c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z" fill="#fff"/>
+        <path d="M20 14v-3M20 29v-3M14 20h-3M29 20h-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="nav-brand">Cabana<sup>®</sup></span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-tag">Burgers Reais</span>
+    <span class="nav-units">● 28 Unidades</span>
+    <span class="nav-name">Eduardo</span>
+  </div>
+</nav>
+
 <div class="page">
 
-  <div class="header">
-    <div class="accent-bar"></div>
-    <h1>Trilha de Carreira — Operações</h1>
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="accent-bar"></div>
+      <h1>Trilha de Carreira — Operações</h1>
+    </div>
+    <p class="subtitle">Clique em qualquer cargo para detalhes completos e visualização da jornada</p>
   </div>
-  <p class="subtitle">Clique em qualquer cargo para detalhes completos e visualização da jornada</p>
 
   <div class="legend">
     <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>Gestão</div>
@@ -600,7 +646,7 @@ function buildTimeline(key) {
       // Card below dot
       const cw = stopW - 10;
       const cx0 = cx - cw / 2;
-      const cardFill = isCur ? '#E8F5E9' : isTop ? '#1B5E20' : '#fff';
+      const cardFill = isCur ? '#E8F5E9' : isTop ? '#1B5E20' : '#FAFAF7';
       const cardStroke = isCur ? '#2E7D32' : isTop ? '#1B5E20' : isEq ? '#F57C00' : '#C8E6C9';
       const sw = isCur || isTop ? 1.5 : 1;
 
@@ -805,5 +851,12 @@ function closeDetail() {
 /* ─── INIT ─── */
 renderBoard();
 </script>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">Cabana<sup>®</sup></div>
+  <div class="footer-sub">Burgers Reais &nbsp;·&nbsp; Hub Operacional &nbsp;·&nbsp; 2026</div>
+</footer>
+
 </body>
 </html>
